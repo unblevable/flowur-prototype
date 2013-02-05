@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<head>
+    <title>Prototype</title>
+    <meta charset = "utf-8" />
+    <link href = "style.css" rel = "stylesheet" type = "text/css" media = "all" />
+    <script type="text/javascript" src="//use.typekit.net/yxz0qgs.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script src = "//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script>
+    $(document).on('ready', function(){
+        $('header').css({
+            height: $(window).height()
+        });
+        $('footer').css({
+            height: $(window).height() / 2
+        });
+        $(window).on('resize', function(){
+            $('header').css({
+                height: $(window).height()
+            });
+            $('footer').css({
+                height: $(window).height() / 2
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <header>
+    <a class = "button sign-in">Sign in</a>
+        <div id = "intro">
+            <h1>A new and easy way to make flowcharts</h1>
+            <h2>You focus on the data, we handle the visuals.</h2>
+            <a class = "button create">Create a chart</a>
+        </div>
+        <p>&darr; Watch the screencast</p>
+    </header>
+    <div id = "video">
+        <p>Learn the basics</p>
+    </div>
+    <div id = "overview">
+        <h3>Featured flowcharts</h3>
+    </div>
+    <ul id = "featured">
+        <li>
+            <div class = "thumbnail">
+                <div class = "meta">
+                    <img class = "tip" src = "images/tip.png" alt = "triangle" />
+                    <p><span class = "title">How to Kill a Mockingbird</span> by <span class = "author">Harper Lee</span></p>
+                    <div class = "like"><img src = "images/thumb.png" alt = "like"/></div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class = "thumbnail">
+                <div class = "meta">
+                    <img class = "tip" src = "images/tip.png" alt = "triangle" />
+                    <p><span class = "title">Do You Even Lift, Bro?</span> by <span class = "author">jchode1337</span></p>
+                    <div class = "like"><img src = "images/thumb.png" alt = "like"/></div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class = "thumbnail">
+                <div class = "meta">
+                    <img class = "tip" src = "images/tip.png" alt = "triangle" />
+                    <p><span class = "title">Should I Try This?</span> by <span class = "author">thatsdank</span></p>
+                    <div class = "like"><img src = "images/thumb.png" alt = "like"/></div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <footer>
+        <div class = "wrapper">
+            <div id = "about">
+                <p>Flowur is an open-source project, made possible through <a href = "http://rcos.rpi.edu">RCOS</a>.</p>
+                <ul>
+                    <li><img src = "images/tumblr.png" alt = "tumblr"/></li>
+                    <li><img src = "images/github.png" alt = "github"/></li>
+                    <li><img src = "images/twitter.png" alt = "twitter"/></li>
+                </ul>
+            </div>
+            <p>&copy; Flowur, 2013</p>
+        </div>
+    </footer>
+</body>
+</html>
