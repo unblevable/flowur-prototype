@@ -1,12 +1,16 @@
-var AppView = Backbone.View.extend({
-    id: 'application',
+define(['jquery', 'underscore', 'backbone', 'models/App'], function($, _, Backbone, App) {
+    var AppView = Backbone.View.extend({
+        id: 'application',
 
-    events: function() {
-        return {
-            // 'ready': 'resizePhases'
-        }
-    },
+        events: function() {
+            return {
+                // 'ready': 'resizePhases'
+            }
+        },
 
-    initialize: function() {
-    },
+        initialize: function() {
+        },
+    });
+
+    return AppView;
 });

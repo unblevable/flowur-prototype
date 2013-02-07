@@ -1,6 +1,76 @@
 @import url(reset.css);
+#app {
+  border-top: 4px solid #99ffcc; }
+
+#navigation {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.0rem;
+  background-color: #111111;
+  padding: 0.75rem;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.25rem; }
+
+#input {
+  background: -webkit-radial-gradient(200px 45px, cover, red 0%, blue 100%);
+  background: -moz-radial-gradient(750px 45px, cover, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.1) 100%);
+  background: radial-gradient(200px 45px, cover, red 0%, blue 100%); }
+  #input .node {
+    width: 96px;
+    height: 96px;
+    z-index: 3;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -48px;
+    margin-left: -48px; }
+  #input .node-background {
+    width: 120px;
+    height: 121px;
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -63.5px;
+    margin-left: -60px; }
+
 #visualize {
+  position: relative;
   background-color: #111111; }
+
+#share {
+  position: relative; }
+  #share .toolbar {
+    border-radius: 0.25rem;
+    -moz-border-radius: 0.25rem;
+    -webkit-border-radius: 0.25rem;
+    position: absolute;
+    left: 1.0rem;
+    top: 1.5rem;
+    background-color: #dddddd;
+    overflow: hidden;
+    font-size: 0.9rem;
+    font-weight: 400;
+    font-family: "nudista-web", Helvetica;
+    color: #ffffff;
+    -moz-box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.3) ;
+    -webkit-box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.3) ;
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.3) ;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15); }
+    #share .toolbar li {
+      float: left; }
+      #share .toolbar li:first-child {
+        background-color: #cccccc;
+        color: #ffffff; }
+        #share .toolbar li:first-child a {
+          text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+          border: 1px solid #c4c4c4; }
+      #share .toolbar li a {
+        border: 1px solid #d0d0d0;
+        display: block;
+        padding: 1.25rem 1.75rem;
+        border-left: none; }
 
 .clearfix, footer {
   zoom: 1; }

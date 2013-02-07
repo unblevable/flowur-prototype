@@ -1,22 +1,26 @@
-var AppRouter = Backbone.Router.extend({
+define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
+    var AppRouter = Backbone.Router.extend({
 
-    routes: {
-        ':flowchart': 'show',
-        ':flowchart/input': 'input',
-        ':flowchart/visualize': 'visualize',
-        ':flowchart/share': 'share'
-    },
+        routes: {
+            ':flowchart': 'show',
+            ':flowchart/input': 'input',
+            ':flowchart/visualize': 'visualize',
+            ':flowchart/share': 'share'
+        },
 
-    show: function() {
-        // will define much later
-    },
+        show: function() {
+            // will define much later
+        },
 
-    input: function(flowchart) {
-    },
+        input: function(flowchart) {
+        },
 
-    visualize: function(flowchart) {
-    },
+        visualize: function(flowchart) {
+        },
 
-    share: function(flowchart) {
-    }
+        share: function(flowchart) {
+        }
+    });
+
+    return AppRouter;
 });
