@@ -1,0 +1,502 @@
+/* line 17, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 1, ../sass/app.scss */
+#progress {
+  width: 100%;
+  height: 4px;
+  background-color: #99ffcc;
+  position: fixed;
+  z-index: 10;
+  opacity: 0.5;
+}
+
+/* line 48, ../sass/app.scss */
+#input {
+  background: -webkit-radial-gradient(200px 45px, cover, red 0%, blue 100%);
+  background: -moz-radial-gradient(750px 45px, cover, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.1) 100%);
+  background: radial-gradient(200px 45px, cover, #ff0000 0%, #0000ff 100%);
+  overflow: hidden;
+}
+/* line 55, ../sass/app.scss */
+#input > .container {
+  position: absolute;
+  left: 50%;
+  width: 100%;
+  margin-left: -50%;
+  width: 100%;
+  height: 100%;
+}
+/* line 61, ../sass/app.scss */
+#input .node {
+  position: absolute;
+  width: 7.45rem;
+  height: 7.45rem;
+}
+/* line 67, ../sass/app.scss */
+#input .node .container {
+  height: 7.45rem;
+  width: 7.45rem;
+}
+/* line 72, ../sass/app.scss */
+#input .node .bubble {
+  border-radius: 0.25rem;
+  -moz-border-radius: 0.25rem;
+  -webkit-border-radius: 0.25rem;
+  -moz-box-shadow: 0 3px 5px 1px rgba(0, 0, 0, 0.1) ;
+  -webkit-box-shadow: 0 3px 5px 1px rgba(0, 0, 0, 0.1) ;
+  box-shadow: 0 3px 5px 1px rgba(0, 0, 0, 0.1) ;
+  padding: 0.3rem 0.5rem;
+  position: absolute;
+  z-index: 4;
+  width: 7rem;
+  height: 1.25rem;
+  left: 50%;
+  margin-left: -4rem;
+  bottom: 7.0775rem;
+  background-color: rgba(254, 194, 2, 0.8);
+  font-family: "futura-pt", Georgia;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(204, 156, 1, 0.8);
+}
+/* line 91, ../sass/app.scss */
+#input .node .bubble .wrap {
+  width: 100%;
+}
+/* line 94, ../sass/app.scss */
+#input .node .bubble .wrap .type {
+  margin-right: 0.35rem;
+  font-weight: 700;
+  width: 1.5rem;
+  float: left;
+  display: inline-block;
+}
+/* line 102, ../sass/app.scss */
+#input .node .bubble .wrap p {
+  float: left;
+  width: 5.15rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-style: italic;
+  text-align: left;
+}
+/* line 112, ../sass/app.scss */
+#input .node .bubble .wrap span {
+  bottom: -0.315rem;
+  content: ' ';
+  z-index: 5;
+  position: absolute;
+  display: block;
+  left: 50%;
+  margin-left: -0.45rem;
+  width: 0;
+  height: 0;
+  border-left: 0.45rem dotted rgba(255, 255, 255, 0);
+  border-right: 0.45rem dotted rgba(255, 255, 255, 0);
+  border-top: 0.375rem solid rgba(254, 194, 2, 0.8);
+}
+/* line 130, ../sass/app.scss */
+#input .node .front {
+  position: absolute;
+  z-index: 3;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  width: 4.8rem;
+  margin-left: -2.4rem;
+  position: absolute;
+  top: 50%;
+  height: 4.8rem;
+  margin-top: -2.4rem;
+  width: 4.8rem;
+  height: 4.8rem;
+  background-color: whitesmoke;
+  box-shadow: 0 6px 10px 2px rgba(0, 0, 0, 0.13);
+}
+/* line 143, ../sass/app.scss */
+#input .node .back {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  width: 7.45rem;
+  height: 7.45rem;
+  background-image: url("../app/assets/node-background.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.5);
+  cursor: move;
+}
+
+/* line 13, ../sass/style.scss */
+.clearfix, footer {
+  zoom: 1;
+}
+/* line 15, ../sass/style.scss */
+.clearfix:before, footer:before, .clearfix:after, footer:after {
+  content: "\0020";
+  display: block;
+  height: 0;
+  overflow: hidden;
+}
+/* line 22, ../sass/style.scss */
+.clearfix:after, footer:after {
+  clear: both;
+}
+
+/* line 28, ../sass/style.scss */
+body {
+  font-size: 16px;
+}
+/* line 17, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body html, body body, body div, body span, body applet, body object, body iframe,
+body h1, body h2, body h3, body h4, body h5, body h6, body p, body blockquote, body pre,
+body a, body abbr, body acronym, body address, body big, body cite, body code,
+body del, body dfn, body em, body img, body ins, body kbd, body q, body s, body samp,
+body small, body strike, body strong, body sub, body sup, body tt, body var,
+body b, body u, body i, body center,
+body dl, body dt, body dd, body ol, body ul, body li,
+body fieldset, body form, body label, body legend,
+body table, body caption, body tbody, body tfoot, body thead, body tr, body th, body td,
+body article, body aside, body canvas, body details, body embed,
+body figure, body figcaption, body footer, body header, body hgroup,
+body menu, body nav, body output, body ruby, body section, body summary,
+body time, body mark, body audio, body video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+/* line 22, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body html {
+  line-height: 1;
+}
+/* line 24, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body ol, body ul {
+  list-style: none;
+}
+/* line 26, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* line 28, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body caption, body th, body td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+/* line 30, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body q, body blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body q:before, body q:after, body blockquote:before, body blockquote:after {
+  content: "";
+  content: none;
+}
+/* line 32, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body a img {
+  border: none;
+}
+/* line 116, ../../../../home/unblevable/.rvm/gems/ruby-1.9.3-p362@flowur/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body article, body aside, body details, body figcaption, body figure, body footer, body header, body hgroup, body menu, body nav, body section, body summary {
+  display: block;
+}
+
+/* line 33, ../sass/style.scss */
+.wrapper {
+  margin: 0 auto;
+}
+
+/* line 38, ../sass/style.scss */
+.button {
+  border-radius: 0.25rem;
+  -moz-border-radius: 0.25rem;
+  -webkit-border-radius: 0.25rem;
+  -moz-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.8) ;
+  -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.8) ;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.8) ;
+  overflow: hidden;
+  white-space: nowrap;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* line 46, ../sass/style.scss */
+.button.create {
+  background-color: #f62525;
+  background: -moz-linear-gradient(top, #f62525 50%, #1b0101, 100%);
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 0.75rem 1.75rem;
+}
+
+/* line 54, ../sass/style.scss */
+.button.sign-in {
+  position: relative;
+  margin: 1.75rem 3rem 0 0;
+  padding: 0.75rem 1rem;
+  float: right;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* line 66, ../sass/style.scss */
+body {
+  font-family: "futura-pt", Georgia, sans-serif;
+  font-weight: 400;
+  background-color: #eeeeee;
+}
+
+/* line 72, ../sass/style.scss */
+header {
+  position: relative;
+  text-align: center;
+  color: white;
+  background-image: url("../images/blackorchid.png");
+  text-shadow: 0 -2px 1px black;
+  border-bottom: 1px solid white;
+}
+/* line 80, ../sass/style.scss */
+header h1, header h2, header h3, header h4, header h5, header h6 {
+  font-family: "futura-pt", Georgia, sans-serif;
+}
+/* line 84, ../sass/style.scss */
+header h1 {
+  font-size: 2.25rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+/* line 91, ../sass/style.scss */
+header h2 {
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.65rem;
+  margin-bottom: 2.0rem;
+}
+/* line 98, ../sass/style.scss */
+header #intro {
+  height: 4rem;
+  position: absolute;
+  top: 50%;
+  height: 8.25rem;
+  margin-top: -4.125rem;
+  position: absolute;
+  left: 50%;
+  width: 100%;
+  margin-left: -50%;
+}
+/* line 106, ../sass/style.scss */
+header p {
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  width: 100%;
+  margin-left: -50%;
+  bottom: 3.0rem;
+  font-size: 0.9rem;
+}
+
+/* line 115, ../sass/style.scss */
+#video {
+  position: relative;
+  width: 48.0rem;
+  height: 27.0rem;
+  margin: 3rem auto;
+  background-color: #999999;
+}
+/* line 122, ../sass/style.scss */
+#video p {
+  height: 2rem;
+  width: 10rem;
+  display: inline-block;
+  padding: 0.25rem 0.25rem;
+  border-radius: 2rem;
+  -moz-border-radius: 2rem;
+  -webkit-border-radius: 2rem;
+  position: absolute;
+  top: 50%;
+  height: 2rem;
+  margin-top: -1rem;
+  position: absolute;
+  left: 50%;
+  width: 10rem;
+  margin-left: -5rem;
+  background-color: #ffffff;
+  font-size: 1.25rem;
+  text-align: center;
+  line-height: 2rem;
+  color: #666666;
+}
+
+/* line 140, ../sass/style.scss */
+#overview {
+  width: 54.0rem;
+  margin: 3rem auto;
+  background-color: #333333;
+  padding: 3.0rem;
+  -moz-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2) ;
+  -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2) ;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2) ;
+}
+/* line 147, ../sass/style.scss */
+#overview h3 {
+  padding: 1.0rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #333333;
+}
+
+/* line 155, ../sass/style.scss */
+#featured {
+  margin: 3rem auto;
+  width: 60.0rem;
+}
+/* line 159, ../sass/style.scss */
+#featured li {
+  display: inline-block;
+  list-style-type: none;
+  margin-left: 1.5rem;
+}
+/* line 164, ../sass/style.scss */
+#featured li .thumbnail {
+  position: relative;
+  width: 18.75rem;
+  height: 22.0rem;
+  background-image: url("../images/flowchart.jpg");
+  -moz-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2) ;
+  -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2) ;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2) ;
+}
+/* line 171, ../sass/style.scss */
+#featured li .thumbnail .meta {
+  font-family: "Helvetica";
+  width: 16.75rem;
+  padding: 1.25rem 1rem 1.25rem 1rem;
+  position: absolute;
+  bottom: 0;
+  background-color: #ffffff;
+  font-size: 0.625rem;
+}
+/* line 180, ../sass/style.scss */
+#featured li .thumbnail .meta .tip {
+  position: absolute;
+  top: -8px;
+  left: 8px;
+}
+/* line 186, ../sass/style.scss */
+#featured li .thumbnail .meta .title {
+  font-weight: 700;
+}
+/* line 190, ../sass/style.scss */
+#featured li .thumbnail .meta .like {
+  margin-left: 3.0rem;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #111111;
+  width: 3.0rem;
+}
+/* line 199, ../sass/style.scss */
+#featured li .thumbnail .meta .like img {
+  width: 17px;
+  height: 16px;
+  position: absolute;
+  left: 50%;
+  width: 17px;
+  margin-left: -8.5px;
+  position: absolute;
+  top: 50%;
+  height: 16px;
+  margin-top: -8px;
+}
+/* line 212, ../sass/style.scss */
+#featured li:first-child {
+  margin-left: 0;
+}
+
+/* line 217, ../sass/style.scss */
+footer {
+  background-color: #111111;
+  color: #ffffff;
+  text-align: center;
+  font-size: 1.65rem;
+  font-style: italic;
+}
+/* line 224, ../sass/style.scss */
+footer .wrapper {
+  width: 60.0rem;
+}
+/* line 227, ../sass/style.scss */
+footer .wrapper #about {
+  padding: 3rem 0 0 0;
+}

@@ -5,50 +5,41 @@
     <script type="text/javascript" src="//use.typekit.net/yxz0qgs.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     <script data-main = "app/bootstrap.js" src = "//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js"></script>
-    <link href = "style.css" rel = "stylesheet" type = "text/css" media = "all" />
-    <script type = "text/html" id = "text">
-    <div class = "text">
-        <textarea>Hi! I'm a node.</textarea>
-        <span><img src = "" alt = "settings" />Settings</span>
+    <link href = "css/style.css" rel = "stylesheet" type = "text/css" media = "all" />
+    <script type = "text/html" id = "node-template">
+    <div class = "container">
+        <span></span>
+        <div class = "front"></div>
+        <div class = "back"></div>
     </div>
     </script>
-    <script type = "text/html" id = "settings">
-    <div class = "settings">
-        <label>
-            <select name = "type">
-                <option value = "question">Question</option>
-                <option value = "answer">Answer</option>
-            </select>
-            Type<span>?</span>
-        </label>
-        <label>
-            <select name = "importance">
-                <option value = "1">1</option>
-                <option value = "2">2</option>
-                <option value = "3">3</option>
-            </select>
-            Importance<span>?</span>
-        </label>
+    <script type = "text/html" id = "bubble-template">
+    <div class = "wrap">
+        <div class = "type">Q:</div>
+        <p>How to win at everything</p>
+        <span></span>
     </div>
+    </script>
+    <script type = "text/html" id = "input-template">
+    <div class = "container"></div>
     </script>
 </head>
 <body id = "app">
-    <ul id = "navigation">
-        <li>Fl</li>
-        <li></li>
-        <li></li>
-    </ul>
-    <div id = "input">
-        <img class = "node" src = "app/assets/node.png" />
-        <img class = "node-background" src = "app/assets/node_background.png" />
-    </div>
-    <div id = "visualize">
-    </div>
-    <div id = "share">
-        <!-- <ul class = "toolbar"> -->
-        <!--     <li><a>Input your data</a></li> -->
-        <!--     <li><a>Settings</a></li> -->
-        <!-- </ul> -->
-    </share>
+    <div id = "progress"></div>
+    <!-- <ul id = "navigation"> -->
+    <!--     <li>Fl</li> -->
+    <!--     <li></li> -->
+    <!--     <li></li> -->
+    <!-- </ul> -->
+    <!-- <div id = "input"> -->
+    <!-- </div> -->
+    <!-- <div id = "visualize"> -->
+    <!-- </div> -->
+    <!-- <div id = "share"> -->
+    <!--     <ul class = "toolbar"> -->
+    <!--         <li><a>Input your data</a></li> -->
+    <!--         <li><a>Settings</a></li> -->
+    <!--     </ul> -->
+    <!-- </share> -->
 </body>
 </html>
