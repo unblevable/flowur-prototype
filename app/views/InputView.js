@@ -3,7 +3,7 @@ define(['jquery', 'underscore', 'backbone', 'models/Node', 'views/NodeView'], fu
 
         // object of child element (selectors) that are not Backbone Views
         els: {
-            container: '.container'
+            container: 'input-container'
         },
 
         // -------------------------------------------------/ custom properties
@@ -13,12 +13,10 @@ define(['jquery', 'underscore', 'backbone', 'models/Node', 'views/NodeView'], fu
         template: _.template($('#input-template').html()),
 
         events: {
-            'mousedown': 'zoom',
-            'mouseup': 'zoomOut'
         },
 
         initialize: function() {
-            _(this).bindAll('render', 'drawNode', 'zoom', 'zoomOut');
+            _(this).bindAll('render', 'drawNode');
         },
 
         render: function() {
@@ -31,6 +29,8 @@ define(['jquery', 'underscore', 'backbone', 'models/Node', 'views/NodeView'], fu
                 iy = h * (4 / 7);
 
             this.drawNode(ix, iy);
+            this.drawNode(600, 200);
+            this.drawNode(800, 400);
 
             return this;
         },
@@ -43,17 +43,9 @@ define(['jquery', 'underscore', 'backbone', 'models/Node', 'views/NodeView'], fu
 
             this.model.get('nodes').add(node);
 
-            this.$(this.els.container).append(nodeView.$el);
+            this.$('.input-container').append(nodeView.$el);
             nodeView.render();
         },
-
-        zoom: function() {
-            // this.$(this.els.container).css('-moz-transform', 'scale(0.65)');
-        },
-
-        zoomOut: function() {
-            // this.$(this.els.container).css('-moz-transform', 'scale(1.0)');
-        }
     });
 
     return InputView;

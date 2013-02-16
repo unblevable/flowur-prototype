@@ -14,6 +14,14 @@
 	margin-left: -$width / 2;
 }
 
+@mixin placeholder($color) {
+    ::-webkit-input-placeholder { color: $color };
+    ::-moz-placeholder { color: $color };
+    :-ms-input-placeholder { color: $color }
+    input:-moz-placeholder { color: $color }
+
+}
+
 
 @mixin border-radius($radius) {
 	border-radius: $radius;

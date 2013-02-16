@@ -22,28 +22,37 @@
 
 // $color: rgb(248, 200, 46);
 
-    $container-width: 100%;
-    $container-height: 100%;
+$menu-toggle-color: rgb(135, 135, 135);
+$menu-toggle-border-color: rgb(200, 200, 200);
 
-    $front-background-image: '../app/assets/node-foreground.png';
-    $front-width: 4.8rem;
-    $front-height: 4.8rem;
+$error: 0.95;
+$container-width: 100%;
+$container-height: 100%;
 
-    $back-background-image: '../app/assets/node-background.png';
-    $back-width: 7.45rem;
-    $back-height: 7.45rem;
+$front-background-image: '../app/assets/node-foreground.png';
+$front-width: 4.8rem;
+$front-height: 4.8rem;
 
-    $bubble-width: 7.0rem;
-    $bubble-height: 1.25rem;
-    $bubble-x-padding: 0.5rem;
-    $bubble-y-padding: 0.3rem;
-    $bubble-color: rgba(254, 194, 2, 0.8);
+$back-background-image: '../app/assets/node-background.png';
+$back-width: 7.45rem;
+$back-height: 7.45rem;
 
-    $type-width: 1.5rem;
-    $type-x-margin: 0.35rem;
+$bubble-width: 7.0rem;
+$bubble-height: 1.25rem;
+$bubble-x-padding: 0.5rem;
+$bubble-y-padding: 0.3rem;
+$bubble-color: rgba(254, 194, 2, 0.8);
 
-    $triangle-width: 0.45rem;
-    $triangle-height: 0.375rem;
+$maximized-bubble-width: 12.5rem;
+$maximized-bubble-height: 5.5rem;
+
+$textarea-padding: 0.5rem;
+
+$type-width: 1.5rem;
+$type-x-margin: 0.35rem;
+
+$triangle-width: 0.45rem;
+$triangle-height: 0.375rem;
 
 #input {
 
@@ -51,6 +60,40 @@
     background: -moz-radial-gradient(750px 45px, cover, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.1) 100%);
     background: radial-gradient(200px 45px, cover, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%);
     overflow: hidden;
+
+    a.menu-toggle {
+
+        position: absolute;
+        z-index: 10;
+        top: 2.0rem;
+        left: 2.0rem;
+        display: block;
+        padding: 0.25rem 0.5rem;
+        border: 1px solid $menu-toggle-border-color;
+        border-radius: 0.125rem;
+
+        &:link, &:visited {
+
+            text-decoration: none;
+            color: $menu-toggle-color;
+        }
+
+        &:hover {
+
+            color: darken($menu-toggle-color, 5%);
+            border-color: darken($menu-toggle-border-color, 5%);
+        }
+
+        .icon-cog {
+
+            font-size: 1.125rem;
+            margin-right: 0.5rem;
+        }
+        .icon-caret-down {
+
+            font-size: 0.875rem;
+        }
+    }
 
     > .container {
         @include horizontal-center($container-width);
@@ -65,8 +108,15 @@
         height: $back-height;
 
         .container {
+            border-radius: 50%;
             height: $back-height;
             width: $back-width;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            float: right;
         }
 
         .bubble {
@@ -91,8 +141,9 @@
             .wrap {
                 width: 100%;
 
+
                 .type {
-                    margin-right: $type-x-margin;
+                    margin-right: $bubble-x-padding;
                     font-weight: 700;
                     width: $type-width;
                     float: left;
@@ -100,16 +151,20 @@
                 }
 
                 p {
+                    margin-top: 0.125rem;
+                    font-size: 1.125rem;
+                    padding-bottom: $bubble-y-padding;
                     float: left;
-                    width: $bubble-width - ($type-width + $type-x-margin);
+                    width: $error * ($bubble-width - ($type-width + $bubble-x-padding));
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
-                    font-style: italic;
+                    // font-style: italic;
                     text-align: left;
                 }
-
-                span {
+            }
+        }
+                .tip {
                     bottom: -$triangle-width * 0.7;
                     content: ' ';
                     z-index: 5;
@@ -123,7 +178,67 @@
                     border-right: $triangle-width dotted rgba(255, 255, 255, 0);
                     border-top: $triangle-height solid $bubble-color;
                 }
+
+        .maximized-bubble {
+            @extend .bubble;
+            padding-top: 0.5rem;
+            width: $maximized-bubble-width;
+            height: $maximized-bubble-height;
+            left: 50%;
+            margin-left: -(($maximized-bubble-width + $bubble-x-padding * 2) / 2);
+
+            .wrap {
+                width: 100%;
             }
+
+            textarea {
+                clear: both;
+                border: none;
+                @include border-radius(0.25rem);
+                outline: none;
+                padding: $textarea-padding;
+                float: left;
+                width: $maximized-bubble-width - $textarea-padding * 2;
+                text-align: left;
+                resize: none;
+                background-color: rgba(245, 245, 245, 1.0);
+                // color: #333333;
+                box-shadow: 0 1px 0 0 lighten($bubble-color, 25%);
+                border: 1px solid darken($bubble-color, 5%);
+                border-left: none;
+                border-right: none;
+                font-weight: 300;
+                font-family: "nimbus-sans";
+                font-size: 0.875rem;
+                line-height: 1.0rem;
+                height: 3.0rem;
+            }
+
+            .blur {
+                // background-color: darken($bubble-color, 5%);
+                // color: #ffffff;
+                // box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1) inset,
+                //             0 1px 0 0 lighten($bubble-color, 20%);
+            }
+
+            .meta {
+                color: white;
+                width: $maximized-bubble-width;
+                font-size: 0.875rem;
+                float: left;
+                margin-bottom: 0.2rem;
+
+            }
+
+            .remaining-character-count {
+                float: left;
+            }
+
+            .settings {
+                margin-right: $bubble-x-padding / 2;
+            }
+
+
         }
 
 

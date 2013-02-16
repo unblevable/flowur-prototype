@@ -16,12 +16,23 @@
     <script type = "text/html" id = "bubble-template">
     <div class = "wrap">
         <div class = "type">Q:</div>
-        <p>How to win at everything</p>
-        <span></span>
+        <p><%= text %></p>
+        <span class = "tip"></span>
+    </div>
+    </script>
+    <script type = "text/html" id = "bubble-maximized-template">
+    <div class = "wrap">
+        <div class = "meta">
+            <span class = "remaining-character-count"><%= remainingCharacterCount %></span>
+            <a href = "#"><span class = "settings">Settings</span><span data-icon = "&#xf013;" aria-hidden = "true"></span></a>
+            <span class = "tip"></span>
+        </div>
+        <textarea maxlength = "140" placeholder = "Question?" rows = "2" spellcheck = "true"><%= text %></textarea>
     </div>
     </script>
     <script type = "text/html" id = "input-template">
-    <div class = "container"></div>
+    <a class = "menu-toggle" href = "#"><span class = "icon-cog" data-icon = "&#xf013;" aria-hidden = "true"></span><span class = "icon-caret-down" data-icon = "&#xf0d7;" aria-hidden = "true"></span></a>
+    <div class = "input-container"></div>
     </script>
 </head>
 <body id = "app">

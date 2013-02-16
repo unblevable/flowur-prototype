@@ -6,12 +6,18 @@ define(['jquery', 'underscore', 'backbone', 'models/Bubble', 'views/BubbleView']
         template: _.template($('#node-template').html()),
 
         events: {
-            'mouseenter .container, .bubble': 'highlight',
-            'mouseleave .container, .bubble': 'unhighlight',
+            'mouseenter .container': 'highlight',
+            'mouseleave .container': 'unhighlight',
+            'click .container': function(){
+                this.bubbleView.trigger('nodeSelect');
+            },
+            'dblclick .container': function(){
+                this.bubbleView.trigger('nodeSelect');
+            }
         },
 
         initialize: function() {
-            _(this).bindAll('render', 'highlight', 'unhighlight');
+            _(this).bindAll('render');
             var bubble = new Bubble({ parent: this.model });
             this.bubbleView = new BubbleView({ model: bubble });
         },
@@ -37,11 +43,11 @@ define(['jquery', 'underscore', 'backbone', 'models/Bubble', 'views/BubbleView']
         // event listeners ----------------------------------------------------
 
         highlight: function(event) {
-            this.bubbleView.trigger('highlight');
+            this.bubbleView.trigger('nodeHighlight');
         },
 
-        unhighlight: function(event) {
-            this.bubbleView.trigger('unhighlight');
+        unhighlight: function() {
+            this.bubbleView.trigger('nodeUnhighlight');
         }
 
     });

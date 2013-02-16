@@ -4,7 +4,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         defaults: {
             x: 0,
             y: 0,
-            type: 'question'
+            type: 'question',
+            isSelected: false,
         },
 
         initialize: function(options) {
