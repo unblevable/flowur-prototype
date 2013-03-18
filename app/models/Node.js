@@ -5,11 +5,133 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             x: 0,
             y: 0,
             type: 'question',
-            isSelected: false,
+            importance: 1.0,
+            isEditingOptions: false,
+            isImportanceUserSet: false,
+
+            // rem
+            baseBackSize: 7.45,
+            baseFrontSize: 4.8,
+
+            // keep references to both arrows and nodes for speed
+
+            outArrows: null,                        // arrows that point away from the node
+            inArrows:null,                          // arrows that point toward the node
+            // array of all arrows for convenience
+            arrows: null,
+
+            fromNodes: null,                        // nodes that connect forward to the node
+            toNodes: null,                          // nodes that the node connects (forward) to
+            // could be used for a fancy highlight effect
+            nodes: null,
         },
 
-        initialize: function(options) {
+        initialize: function(attributes, options) {
+            _(this).bindAll('addOutArrow', 'addInArrow', 'addArrow', 'addFromNode', 'addToNode', 'addNode', 'setAsArray');
+
+            this.setAsArray('outArrows', 'inArrows', 'arrows', 'fromNodes', 'toNodes', 'nodes');
+
+            if(typeof options.type !== 'undefined') {
+                this.set('type', options.type);
+            }
         },
+
+
+        addOutArrow: function(arrow) {
+            this.get('outArrows').push(arrow);
+            this.trigger('change:outArrows');
+
+            this.addArrow(arrow);
+        },
+
+        addInArrow: function(arrow) {
+            this.get('inArrows').push(arrow);
+            this.trigger('change:inArrows');
+
+            this.addArrow(arrow);
+        },
+
+        addArrow: function(arrow) {
+            this.get('arrows').push(arrow);
+            this.trigger('change:arrows');
+            this.trigger('change');
+        },
+
+        removeOutArrow: function(arrowToDelete) {
+            var outArrows = this.get('outArrows');
+            _(outArrows).each(function(arrow, index) {
+                if(arrow === arrowToDelete) outArrows.splice(index, 1);
+            }.bind(this));
+
+            this.removeArrow(arrowToDelete);
+        },
+
+        removeInArrow: function(arrowToDelete) {
+            var inArrows = this.get('outArrows');
+            _(inArrows).each(function(arrow, index) {
+                if(arrow === arrowToDelete) inArrows.splice(index, 1);
+            }.bind(this));
+
+            this.removeArrow(arrowToDelete);
+        },
+
+        removeArrow: function(arrowToDelete) {
+            var arrows = this.get('arrows');
+            _(arrows).each(function(arrow, index) {
+                if(arrow === arrowToDelete) arrows.splice(index, 1);
+            }.bind(this));
+        },
+
+        addFromNode: function(node) {
+            this.get('fromNodes').push(node);
+            this.trigger('change:fromNodes');
+            this.addNode(node);
+        },
+
+        addToNode: function(node) {
+            this.get('toNodes').push(node);
+            this.trigger('change:toNodes');
+            this.addNode(node);
+        },
+
+        addNode: function(node) {
+            this.get('nodes').push(node);
+            this.trigger('change:nodes');
+            this.trigger('change');
+        },
+
+        removeFromNode: function(nodeToDelete) {
+            var fromNodes = this.get('fromNodes');
+            _(fromNodes).each(function(node, index) {
+                if(node === nodeToDelete) fromNodes.splice(index, 1);
+            }.bind(this));
+
+            this.removeNode(nodeToDelete);
+        },
+
+        removeToNode: function(nodeToDelete) {
+            var toNodes = this.get('toNodes');
+            _(toNodes).each(function(node, index) {
+                if(node === nodeToDelete) toNodes.splice(index, 1);
+            }.bind(this));
+
+            this.removeNode(nodeToDelete);
+        },
+
+        removeNode: function(nodeToDelete) {
+            var nodes = this.get('nodes');
+            _(nodes).each(function(node, index) {
+                if(node === nodeToDelete) nodes.splice(index, 1);
+            }.bind(this));
+        },
+
+        setAsArray: function() {
+            _(arguments).each(function(argument, index) {
+                if(_(argument).isString()) {
+                    if(!this.get(argument)) this.set(argument, []);
+                }
+            }.bind(this));
+        }
 
         // non-Backbone methods -----------------------------------------------
     });

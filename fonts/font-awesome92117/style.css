@@ -1,0 +1,65 @@
+@font-face {
+	font-family: 'font-awesome';
+	src:url('fonts/font-awesome.eot');
+	src:url('fonts/font-awesome.eot?#iefix') format('embedded-opentype'),
+		url('fonts/font-awesome.woff') format('woff'),
+		url('fonts/font-awesome.ttf') format('truetype'),
+		url('fonts/font-awesome.svg#font-awesome') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+	font-family: 'font-awesome';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+/*
+Instead of a list of all class selectors,
+you can use the generic selector below, but it's slower:
+[class*="icon-"]:before {
+*/
+.icon-cog:before, .icon-ok-sign:before, .icon-question-sign:before, .icon-exclamation-sign:before, .icon-trash:before, .icon-refresh:before, .icon-remove:before, .icon-legal:before, .icon-pencil:before, .icon-caret-down:before {
+	font-family: 'font-awesome';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+.icon-cog:before {
+	content: "\f013";
+}
+.icon-ok-sign:before {
+	content: "\f058";
+}
+.icon-question-sign:before {
+	content: "\f059";
+}
+.icon-exclamation-sign:before {
+	content: "\f06a";
+}
+.icon-trash:before {
+	content: "\f014";
+}
+.icon-refresh:before {
+	content: "\f021";
+}
+.icon-remove:before {
+	content: "\f00d";
+}
+.icon-legal:before {
+	content: "\f0e3";
+}
+.icon-pencil:before {
+	content: "\f040";
+}
+.icon-caret-down:before {
+	content: "\f0d7";
+}

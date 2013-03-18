@@ -1,0 +1,163 @@
+$bubble-x-padding: 0.5rem;
+$bubble-y-padding: 0.325rem;
+$minimized-bubble-width: 8.0rem;
+$minimized-bubble-height: 1.25rem;
+$maximized-bubble-width: 12.5rem;
+$maximized-bubble-height: 5.5rem;
+$textarea-padding: 0.5rem;
+$type-width: 1.5rem;
+$type-x-margin: 0.35rem;
+$triangle-width: 0.45rem;
+$triangle-height: 0.375rem;
+
+// colors ---------------------------------------------------------------------
+$bubble-color: $transparent-orange;
+
+.bubble {
+
+    border-radius: 0.25rem;
+    padding-bottom: $bubble-y-padding;
+    padding-left: $bubble-x-padding;
+    padding-right: $bubble-x-padding;
+
+    position: absolute;
+    left: 50%;
+    z-index: 400;
+
+    // arbitrary distance
+    bottom: $back-height * 0.95;
+
+    font-family: 'futura-pt', Georgia;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 3px 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+.minimized-bubble {
+
+    $bubble-left-padding: 0.5rem;
+    $min-width: $type-width * 2;
+    margin-left: -(($min-width + $bubble-x-padding + $bubble-left-padding) / 2);
+    left: 50%;
+    padding-top: $bubble-y-padding;
+    padding-bottom: $bubble-y-padding;
+    padding-left: $bubble-x-padding;
+    padding-right: $bubble-left-padding;
+    position: absolute;
+    max-width: $minimized-bubble-width;
+    min-width: $min-width;
+    height: $minimized-bubble-height;
+
+    .type {
+        left: $bubble-x-padding - 0.05rem;
+        position: absolute;
+        width: $type-width;
+        font-weight: 700;
+    }
+
+    .text {
+        position: relative;
+        margin-top: 0.125rem;
+        margin-left: $type-width + $bubble-x-padding - 0.25rem;
+        padding-bottom: $bubble-y-padding;
+        // width of the bubble - the width of the space holding the letter (i.e. type) - the space on the left of the bubble, the space on the right of the bubble, the space between the type and text - padd for the ellipsis
+        max-width: ($minimized-bubble-width - ($type-width  + $bubble-x-padding * 3));
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+        white-space: nowrap;
+        font-size: 1.125rem;
+        // bug?
+        color: white;
+    }
+}
+
+.maximized-bubble {
+
+    margin-left: -(($maximized-bubble-width + $bubble-x-padding * 2) / 2);
+    padding-top: $bubble-y-padding + 0.20rem;
+    padding-bottom: $bubble-y-padding + 0.025rem;
+    width: $maximized-bubble-width;
+    height: $maximized-bubble-height;
+
+    .wrap {
+        width: 100%;
+    }
+
+    textarea {
+
+        padding: $textarea-padding;
+        // border: 1px solid darken($bubble-color, 5%);
+        border-top-width: 1px;
+        border-top-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-left: none;
+        border-right: none;
+        border-radius: 0.25rem;
+        outline: none;
+        width: $maximized-bubble-width - $textarea-padding * 2;
+        height: 3.0rem;
+        float: left;
+        clear: both;
+        text-align: left;
+        font-weight: 300;
+        font-family: "nimbus-sans";
+        font-size: 0.9rem;
+        line-height: 1.0rem;
+        background-color: rgba(245, 245, 245, 1.0);
+        // box-shadow: 0 1px 0 0 lighten($bubble-color, 25%);
+        resize: none;
+    }
+
+    .meta {
+
+        margin-bottom: 0.25rem;
+        width: $maximized-bubble-width;
+        float: left;
+        font-size: 0.9rem;
+
+        .remaining-character-count {
+
+            float: left;
+        }
+
+        .editing-options-notification {
+
+            float: left;
+            display: none;
+            font-style: italic;
+        }
+
+        a.options {
+
+            margin-right: 0.3rem;
+            float: left;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .options {
+        }
+    }
+}
+
+.tip {
+
+    margin-left: -1 * $triangle-width;
+    border-left: $triangle-width dotted rgba(255, 255, 255, 0);
+    border-right: $triangle-width dotted rgba(255, 255, 255, 0);
+    border-top-width: $triangle-height;
+    border-top-style: solid;
+    z-index: 399;
+    position: absolute;
+    left: 50%;
+    bottom: -$triangle-width * 0.7;
+    width: 0;
+    height: 0;
+    display: block;
+    content: ' ';
+}

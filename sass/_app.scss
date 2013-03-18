@@ -1,0 +1,175 @@
+#progress {
+
+    width: 100%;
+    height: 4px;
+    background-color: #99ffcc;
+    position: fixed;
+    z-index: 10;
+    opacity: 0.5;
+}
+
+$error: 0.95;
+
+$container-width: 100%;
+$container-height: 100%;
+
+$front-background-image: '../app/assets/node-foreground.png';
+$front-width: 4.8rem;
+$front-height: 4.8rem;
+
+$back-background-image: '../app/assets/node-background.png';
+$back-width: 7.45rem;
+$back-height: 7.45rem;
+
+$question-color                 : $pink;
+$answer-color                   : $blue;
+$statement-color                : $orange;
+
+$transparent-question-color     : transparentize($question-color, 0.2);
+$transparent-answer-color       : transparentize($answer-color, 0.2);
+$transparent-statement-color    : transparentize($statement-color, 0.2);
+
+
+.question-arrow, .question-button {
+    background-color: lighten($question-color, 7.5%);
+}
+
+.answer-arrow, .answer-button {
+    background-color: lighten($answer-color, 7.5%);
+}
+
+.statement-arrow, .statement-button {
+    background-color: lighten($statement-color, 7.5%);
+}
+
+.question-answer-arrow {
+    @include background-image(linear-gradient(left, lighten($question-color, 7.5%) 25%, lighten($answer-color, 7.5%)));
+}
+.question-statement-arrow {
+    @include background-image(linear-gradient(left, lighten($question-color, 7.5%) 25%, lighten($statement-color, 7.5%)));
+}
+.answer-question-arrow {
+    @include background-image(linear-gradient(left, lighten($answer-color, 7.5%) 25%, lighten($question-color, 7.5%)));
+}
+.answer-statement-arrow {
+    @include background-image(linear-gradient(left, lighten($answer-color, 7.5%) 25%, lighten($statement-color, 7.5%)));
+}
+.statement-question-arrow {
+    @include background-image(linear-gradient(left, lighten($statement-color, 7.5%) 25%, lighten($question-color, 7.5%)));
+}
+.statement-answer-arrow {
+    @include background-image(linear-gradient(left, lighten($statement-color, 7.5%) 25%, lighten($answer-color, 7.5%)));
+}
+
+.question-bubble {
+    background-color: $transparent-question-color;
+}
+
+.answer-bubble {
+    background-color: $transparent-answer-color;
+}
+
+.statement-bubble {
+    background-color: $transparent-statement-color;
+}
+
+.question-tip {
+    border-top-color: $transparent-question-color;
+}
+
+.answer-tip {
+    border-top-color: $transparent-answer-color;
+}
+
+.statement-tip {
+    border-top-color: $transparent-statement-color;
+}
+
+.question-textarea {
+    border-top-color:       darken($transparent-question-color, 5%);
+    border-bottom-color: darken($transparent-question-color, 5%);
+    box-shadow: 0 1px 0 0 lighten($transparent-question-color, 10%);
+}
+
+.answer-textarea {
+    border-top-color: darken($transparent-answer-color, 5%);
+    border-bottom-color: darken($transparent-answer-color, 5%);
+    box-shadow: 0 1px 0 0 lighten($transparent-answer-color, 25%);
+}
+
+.statement-textarea {
+    border-top-color: darken($transparent-statement-color, 5%);
+    border-bottom-color: darken($transparent-statement-color, 5%);
+    box-shadow: 0 1px 0 0 lighten($transparent-statement-color, 25%);
+}
+
+@import "options";
+@import "bubble";
+@import "arrow";
+
+#input {
+
+    // contain absolute-positioned children
+    position: relative;
+    overflow: hidden;
+    background: -webkit-radial-gradient(200px 45px, cover, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.1) 100%);
+    background: -moz-radial-gradient(200px 45px, cover, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.1) 100%);
+    background: radial-gradient(200px 45px, cover, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.1) 100%);
+    width: 100%;
+
+    #input-container {
+
+        width: 5000px;
+        height: 5000px;
+    }
+
+    .node {
+
+        position: absolute;
+        width: $back-width;
+        height: $back-height;
+
+        .container {
+
+            border-radius: 50%;
+            height: $back-height;
+            width: $back-width;
+        }
+
+        // a {
+        //     text-decoration: none;
+        //     color: white;
+        //     float: right;
+        // }
+
+
+        .front {
+
+            position: absolute;
+            z-index: 300;
+            border-radius: 50%;
+            @include horizontal-center($front-width);
+            @include vertical-center($front-height);
+            width: $front-width;
+            height: $front-height;
+            background-color: darken(#ffffff, 4%);
+            box-shadow: 0 6px 10px 2px rgba(0, 0, 0, 0.13);
+        }
+
+        .back {
+
+            position: absolute;
+            z-index: 100;
+            border-radius: 50%;
+
+            width: $back-width;
+            height: $back-height;
+            background-image: url($back-background-image);
+            background-repeat: no-repeat;
+            background-size: contain;
+            box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.5);
+
+            cursor: move;
+        }
+    }
+}

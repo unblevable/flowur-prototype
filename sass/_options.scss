@@ -1,0 +1,339 @@
+$options-toggle-offset: 2.0rem;
+
+// colors ---------------------------------------------------------------------
+$options-primary-color: rgb(127, 127, 127);
+$options-primary-background-color: $dark-white;
+$options-secondary-color: $dark-gray;
+$options-secondary-background-color: $light-black;
+$options-not-toggled-color: $gray;
+$options-not-toggled-border-color: $dark-gray;
+$options-toggled-color: lighten($options-secondary-color, 5%);
+$options-background-color: rgb(235, 235, 235);
+$options-color: rgb(150, 150, 150);
+
+.options-toggle {
+
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.125rem;
+    position: absolute;
+    z-index: 501;
+    top: $options-toggle-offset;
+    left: $options-toggle-offset;
+    display: block;
+    cursor: pointer;
+
+    &:link {
+
+        outline:none;
+        text-decoration: none;
+    }
+
+    .icon-cog {
+
+        font-size: 1.125rem;
+        margin-right: 0.5rem;
+    }
+    .icon-caret-down {
+
+        font-size: 0.875rem;
+    }
+}
+
+.options-toggle-inactive {
+
+    color: $options-not-toggled-color;
+    border: 1px solid $options-not-toggled-border-color;
+
+    &:hover {
+
+        color: darken($options-not-toggled-color, 7.5%);
+        border-color: darken($options-not-toggled-border-color, 5%);
+    }
+}
+
+.options-toggle-active {
+
+    color: $options-toggled-color;
+    border-color: none;
+
+    &:hover {
+
+        color: darken($options-toggled-color, 7.5%);
+        border-color: darken($options-not-toggled-border-color, 5%);
+    }
+}
+
+#input-options {
+
+    padding-top: 2.25rem;
+    border-radius: 0.25rem;
+    z-index: 500;
+    position: absolute;
+    top: $options-toggle-offset - 0.25rem;
+    left: $options-toggle-offset;
+    width: 16.0rem;
+    overflow: hidden;
+    background-color: $options-primary-background-color;
+    box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.15);
+
+    .options {
+
+        padding-left: 1.125rem;
+        padding-right: 1.125rem;
+        font-size: 1.0rem;
+        font-style: italic;
+        color: rgb(245, 245, 245);
+    }
+
+    .value, .label {
+
+        font-style: italic;
+        margin-bottom: 0.875rem;
+    }
+
+    .value {
+
+        float: left;
+        text-align: left;
+    }
+
+    .label {
+
+        text-align: right;
+        float: right;
+    }
+
+    .slider {
+
+        margin-bottom: 1.25rem;
+        position:relative;
+        z-index: 12;
+        width: 100%;
+        clear: both;
+    }
+
+    .ui-slider-handle {
+
+        border-radius: 50%;
+        outline: none;
+        position: absolute;
+        z-index: 30;
+        box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.30);
+    }
+    .ui-slider-range {
+
+        position: absolute;
+        z-index: 21;
+        height: 100%;
+    }
+
+    #flowchart-options {
+
+        padding-bottom: 1.25rem;
+        color: $dark-gray;
+        background-color: $options-primary-background-color;
+
+        input[type = "text"] {
+
+            padding-bottom: 0.25rem;
+            border: none;
+            border-bottom: 1px solid;
+            outline: none;
+            width: 100%;
+            font-family: "nimbus-sans";
+            font-size: 1.0rem;
+            font-style: italic;
+            text-align: left;
+            color: $options-primary-color;
+            border-bottom-color: lighten($options-secondary-color, 12.5%);
+            background-color: transparent;
+
+            &:hover, &:focus {
+                border-bottom-color: lighten($options-secondary-color, 5%);
+            }
+        }
+    }
+
+    #stats-options {
+
+        padding-top: 1.375rem;
+        padding-bottom: 1.375rem;
+        text-align: center;
+        color: $options-secondary-color;
+        background-color: $options-secondary-background-color;
+
+        .node-count {
+
+            float: left;
+            border-right: 1px solid darken($options-secondary-color, 50%);
+        }
+
+        .arrow-count {
+            float: right;
+        }
+
+        .data-count {
+
+            // threshold
+            width: 49.35%;
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            color: darken($options-secondary-color, 20%);
+            // margin-bottom: 0.875rem;
+        }
+
+        strong {
+
+            margin-bottom: 0.25rem;
+            display: block;
+            font-size: 3.0rem;
+            font-weight: 700;
+            color: $options-secondary-color;
+        }
+
+        #node-options {
+
+            margin-top: 0.875rem;
+            margin-left: 1.125rem;
+            padding: 0.875rem;
+            padding-top: 0;
+            border: 1px solid darken($options-secondary-background-color, 5%);
+            border-radius: 0.125rem;
+            width: 16.0rem - 1.125rem * 2 - 0.875 * 2;
+
+            text-align: left;
+            clear: both;
+            background-color: darken($options-secondary-background-color, 2.5%);
+
+            .value, .label {
+
+                margin-top: 0.875rem;
+                font-size: 0.9rem;
+            }
+
+            .selected {
+
+                position: absolute;
+                right: 0;
+                font-size: 1.0rem;
+                color: white;
+            }
+
+            #importance-slider {
+
+                margin: 0.125rem 0;
+                margin-bottom: 0.25rem;
+                border-radius: 0.45rem;
+                height: 0.45rem;
+                background-color: darken($options-secondary-background-color, 5%);
+                clear: both;
+            }
+
+            .ui-slider-handle {
+
+                margin-top: -0.65rem + 0.225rem;
+                margin-left: -0.65rem;
+                width:1.3rem;
+                height:1.3rem;
+                background-color: darken($options-primary-background-color, 15%);
+            }
+
+            .ui-slider-range {
+
+                border-radius: 0.45rem;
+            }
+
+            .button-wrap {
+
+                position: relative;
+                clear: both;
+                margin-bottom: 0.25rem;
+
+                button:first-child {
+
+                    margin-left: 0;
+                }
+            }
+
+            button {
+
+                position: relative;
+                margin-left: 0.75rem;
+                padding: 0.875rem 0;
+                border:none;
+                border-radius: 0.125rem;
+                outline: none;
+                text-align: center;
+                color: white;
+                font-size: 0.9rem;
+                font-family: "futura-pt";
+                font-weight: 700;
+                width: 3.5rem;
+                float: left;
+
+                &::-moz-focus-inner {
+
+                    border: none;
+                }
+            }
+        }
+    }
+
+    #view-options {
+
+        padding-top: 1.375rem;
+        text-align: center;
+        color: $options-primary-color;
+        background-color: $options-primary-background-color;
+
+        #zoom-slider {
+
+            margin-bottom: 1.25rem;
+            border-radius: 0.5rem;
+            position:relative;
+            z-index: 12;
+            height: 0.5rem;
+            background-color: lighten($options-secondary-color, 15%);
+        }
+
+        .ui-slider-handle {
+
+            margin-top: -0.75rem + 0.25rem;
+            margin-left: -0.75rem;
+            width:1.5rem;
+            height: 1.5rem;
+            background-color: lighten($options-primary-background-color, 5%);
+            box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .ui-slider-range {
+
+            // background-color: $options-secondary-color;
+            border-radius: 0.5rem;
+        }
+
+        button {
+
+            padding: 0.5rem 0;
+            border: none;
+            border-radius: 0.125rem;
+            outline: none;
+            width: 100%;
+            font-family: "futura-pt";
+            font-size: 1.0rem;
+            text-align: center;
+            color: white;
+            background-color: darken($options-secondary-color, 40%);
+
+            &::-moz-focus-inner {
+                border: none;
+            }
+
+            &:hover {
+                background-color: darken($options-secondary-color, 50%);
+            }
+        }
+    }
+}

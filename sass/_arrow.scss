@@ -1,0 +1,13 @@
+$arrow-height: 1.0rem;
+.arrow {
+
+    position: absolute;
+    z-index: 200;
+    height: $arrow-height;
+    border-radius: $arrow-height;
+    // @include background-image(linear-gradient(left, lighten(yellow, 7.5%), lighten($blue, 7.5%)));
+
+    @include apply-origin(0 100%, false);
+    overflow: hidden;
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.6) inset;
+}

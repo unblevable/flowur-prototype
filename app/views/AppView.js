@@ -7,30 +7,25 @@ define(['jquery', 'underscore', 'backbone', 'models/Input', 'views/InputView'], 
         },
 
         initialize: function() {
-            _(this).bindAll('render', 'adjustSize');
+            _(this).bindAll('render');
 
             this.inputView = new InputView({ model: new Input({ parent: this.model }) });
 
             // window events cannot be handled normally by Backbone Views
             $(window).on('resize', _(function() {
-                this.adjustSize(this.inputView.$el);
-            }).bind(this));
+                this.inputView.$el.css({
+                    height: $(window).height(),
+                });
+            }.bind(this)).debounce(200));
         },
 
         render: function() {
             this.$el.append(this.inputView.$el);
-            this.adjustSize(this.inputView.$el);
+            $(window).trigger('resize');
             this.inputView.render();
 
             return this;
         },
-
-        // non-Backbone methods -----------------------------------------------
-
-        adjustSize: function(viewElement) {
-            viewElement.css('width', $(window).width());
-            viewElement.css('height', $(window).height());
-        }
     });
 
     return AppView;
