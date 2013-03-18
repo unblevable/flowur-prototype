@@ -29,6 +29,7 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow', '
                 'mouseleave:nodeFront'      : this.handleArrowLeaveToNode,
                 'activate:optionsToggle'    : this.activateOptionsToggle,
                 'deactivate:optionsToggle'  : this.deactivateOptionsToggle,
+                'showNodeOptions'           : this.activateOptionsToggle,
             });
         },
 

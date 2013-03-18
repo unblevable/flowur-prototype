@@ -3,20 +3,17 @@ define(['jquery', 'underscore', 'backbone', 'models/Input', 'views/InputView'], 
 
         id: 'application',
 
-        events: {
-        },
-
         initialize: function() {
             _(this).bindAll('render');
 
             this.inputView = new InputView({ model: new Input({ parent: this.model }) });
 
             // window events cannot be handled normally by Backbone Views
-            $(window).on('resize', _(function() {
+            $(window).on('resize', function() {
                 this.inputView.$el.css({
                     height: $(window).height(),
                 });
-            }.bind(this)).debounce(200));
+            }.bind(this));
         },
 
         render: function() {

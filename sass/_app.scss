@@ -30,15 +30,21 @@ $transparent-answer-color       : transparentize($answer-color, 0.2);
 $transparent-statement-color    : transparentize($statement-color, 0.2);
 
 
-.question-arrow, .question-button {
+.question-arrow,
+.question-button,
+.question-slider {
     background-color: lighten($question-color, 7.5%);
 }
 
-.answer-arrow, .answer-button {
+.answer-arrow,
+.answer-button,
+.answer-slider {
     background-color: lighten($answer-color, 7.5%);
 }
 
-.statement-arrow, .statement-button {
+.statement-arrow,
+.statement-button,
+.statement-slider {
     background-color: lighten($statement-color, 7.5%);
 }
 

@@ -1,6 +1,6 @@
 @import "compass/css3/images";
 @import "compass/css3/transform";
-@import "compass/reset/utilities";
+@import "compass/reset";
 
 @import "ie";
 @import "colors";
@@ -12,6 +12,8 @@
 @import "bubble";
 @import "options";
 
+$red: #f62525;
+
 body {
     @include global-reset;
 	font-family: "futura-pt", Georgia, sans-serif;
@@ -19,7 +21,7 @@ body {
 	background-color: #eeeeee;
 }
 
-clearfix {
+.clearfix {
 	zoom: 1;
 	&:before, &:after {
 		content: "\0020";

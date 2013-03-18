@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'jqueryui', 'jquery.color'], function($, _, Backbone, InputVent) {
+define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'jqueryui'], function($, _, Backbone, InputVent) {
     var NodeOptionsView = Backbone.View.extend({
 
         id: 'node-options',
@@ -11,19 +11,42 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'jqueryui', 'jque
         inputVent: InputVent,
 
         events: {
-            'mouseover button': 'lighten',
-            'mouseout button': 'darken',
-            'click button': 'setType'
+            'mouseover button'  : 'lighten',
+            'mouseout button'   : 'darken',
+
+                                // change selected node's type and reflect changes in menu
+            'click button'      : function(event) {
+                var buttonClass = $(event.target).attr('class'),
+                    selectedNode = this.model.get('selectedNode'),
+                    previousType = selectedNode.get('type'),
+                    currentType;
+
+                switch(buttonClass) {
+                    case 'question-button':
+                        currentType = 'question';
+                        break;
+                    case 'answer-button':
+                        currentType = 'answer';
+                        break;
+                    case 'statement-button':
+                        currentType = 'statement';
+                        break;
+                }
+
+                selectedNode.set('type', currentType);
+
+                this.syncType(previousType, currentType);
+            }
         },
 
         initialize: function() {
-            _(this).bindAll('render', 'show', 'hide', 'switchSelectedNode', 'lighten', 'darken', 'setType', 'changeColors');
-            _(this).bindAll('toggle');
+            _(this).bindAll('render', 'lighten', 'darken', 'syncType');
+            _(this).bindAll('show', 'hide', 'setSelectedNode', 'unsetSelectedNode', 'syncType', 'syncImportance');
 
-            this.inputVent.on('show:nodeOptions', this.show);
-            this.inputVent.on('hide:nodeOptions', this.hide);
-            this.inputVent.on('switchSelectedNode:nodeOptions', this.switchSelectedNode);
-            this.inputVent.on('changeColors:nodeOptions', this.changeColors);
+            this.inputVent.on({
+                'showNodeOptions'   : this.show,
+                'hideNodeOptions'   : this.hide
+            });
         },
 
         render: function() {
@@ -37,9 +60,10 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'jqueryui', 'jque
                 range: 'min',
 
                 slide: function(event, ui) {
-                    this.model.get('selectedNode').set('importance', ui.value);
+                    var selectedNode = this.model.get('selectedNode');
+                    selectedNode.set('importance', ui.value);
 
-                    this.$('#importance-value').text(ui.value.toFixed(1));
+                    this.syncImportance(selectedNode.get('importance'));
                 }.bind(this)
 
             });
@@ -48,25 +72,6 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'jqueryui', 'jque
         },
 
         // event handlers -----------------------------------------------------
-
-        toggle: function(event) {
-            // if(node.get('isEditingOptions')) {
-            //     this.inputVent.trigger('hide:nodeOptions', node);
-            //     this.inputVent.trigger('switchSelectedNode:nodeOptions', null);
-            // } else {
-            //     this.inputVent.trigger('switchSelectedNode:nodeOptions', node);
-            //     this.inputVent.trigger('activate:optionsToggle');
-            //     this.inputVent.trigger('show:options');
-            //     this.inputVent.trigger('show:nodeOptions', node);
-            // }
-            if(this.isVisible) {
-                this.hide();
-            } else {
-                this.inputVent.trigger('activate:optionsToggle');
-                this.inputVent.trigger('show:options');
-                this.show();
-            }
-        },
 
         lighten: function(event) {
             $(event.target).stop(true, true).animate({
@@ -84,89 +89,64 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'jqueryui', 'jque
             });
         },
 
-        setType: function(event) {
-            var selectedNode = this.model.get('selectedNode'),
-                previousType = selectedNode.get('type'),
-                type = $(event.target).attr('class');
-
-            if(type !== 'type-' + selectedNode.get('type')) {
-                switch(type) {
-                    case 'type-question':
-                        selectedNode.set('type', 'question');
-                        this.$('.selected').hide();
-                        this.$('.type-question .selected').show();
-                        break;
-                    case 'type-answer':
-                        selectedNode.set('type', 'answer');
-                        this.$('.selected').hide();
-                        this.$('.type-answer .selected').show();
-                        break;
-                    case 'type-other':
-                        selectedNode.set('type', 'other');
-                        this.$('.selected').hide();
-                        this.$('.type-other .selected').show();
-                        break;
-                }
-
-                this.$('#importance-slider .ui-slider-range').removeClass('type-' + previousType);
-                this.$('#importance-slider .ui-slider-range').addClass('type-' + selectedNode.get('type'));
-                // this.inputVent.trigger('changeType:bubble', selectedNode, previousType, selectedNode.get('type'));
-                console.log(type);
-                selectedNode.set('type', type);
-            }
-        },
-
         // cross-view event handlers ------------------------------------------
 
-        show: function() {
-            var selectedNode = this.model.get('selectedNode');
-            this.$('#importance-value').text(selectedNode.get('importance').toFixed(1));
-            this.importanceSlider.slider('value', selectedNode.get('importance'));
-            this.$('#importance-slider .ui-slider-range').addClass('type-' + selectedNode.get('type'));
+        show: function(node) {
+            var previousNode = this.model.get('selectedNode'),
+                previousType;
 
-            switch(selectedNode.get('type')) {
-                case 'question':
-                    this.$('.selected').hide();
-                    this.$('.type-question .selected').show();
-                    break;
-                case 'answer':
-                    this.$('.selected').hide();
-                    this.$('.type-answer .selected').show();
-                    break;
-                case 'other':
-                    this.$('.selected').hide();
-                    this.$('.type-other .selected').show();
-                    break;
+            // unselect any node that is editing
+            if(previousNode) {
+                this.unsetSelectedNode();
+                previousType = previousNode.get('type');
+            } else {
+                previousType = null;
             }
+
+            this.setSelectedNode(node);
+
+            var selectedNode = this.model.get('selectedNode');
+
+            this.syncType(previousType, selectedNode.get('type'));
+            this.syncImportance(selectedNode.get('importance'));
 
             this.$el.show();
         },
 
-        hide: function(event) {
+        hide: function() {
+            this.unsetSelectedNode();
             this.$el.hide();
         },
 
-        switchSelectedNode: function(node) {
-            // if new node is not null
-            if(this.model.get('selectedNode')) {
-                this.inputVent.trigger('hideIsEditing:bubble', this.model.get('selectedNode'));
-                this.model.get('selectedNode').set('isEditingOptions', false);
-            }
-
+        setSelectedNode: function(node) {
             this.model.set('selectedNode', node);
-            this.inputVent.trigger('showIsEditing:bubble', this.model.get('selectedNode'));
+            this.inputVent.trigger('setSelectedNode', this.model.get('selectedNode'));
+        },
 
-            // if new node is not null
-            if(this.model.get('selectedNode')) {
-                this.model.get('selectedNode').set('isEditingOptions', true);
-                this.show();
+        unsetSelectedNode: function() {
+            this.inputVent.trigger('unsetSelectedNode', this.model.get('selectedNode'));
+            this.model.set('selectedNode', null);
+        },
+
+        //  reflect selected node's type changes in node options
+        syncType: function(previousType, currentType) {
+            if(previousType !== currentType) {
+                // change check icon
+                this.$('.selected').hide();
+                // (ugly hard code)
+                this.$('.' + currentType + '-button .selected').show();
+
+                // change slider background
+                this.$('#importance-slider .ui-slider-range').removeClass(previousType + '-slider');
+                this.$('#importance-slider .ui-slider-range').addClass(currentType + '-slider');
             }
+
         },
 
-        changeColors: function(oldType, newType) {
-            this.$('#importance-slider .ui-slider-range').removeClass('type-' + oldType);
-            this.$('#importance-slider .ui-slider-range').addClass('type-' + this.model.get('selectedNode').get('type'));
-        },
+        syncImportance: function(importance) {
+            this.$('#importance-value').text(importance.toFixed(1));
+            this.importanceSlider.slider('value', importance);
+        }
     });
 
     return NodeOptionsView;

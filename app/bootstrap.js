@@ -2,7 +2,6 @@ requirejs.config({
     paths: {
         jquery: '//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min',
         'jqueryui': '//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min',
-        'jquery.color': 'lib/jquery.color-2.1.1.min',
         underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min',
         backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min',
         'backbone-nested': 'lib/backbone-nested-v1.1.2.min',
@@ -35,7 +34,10 @@ requirejs.config({
         'iscroll': {
             exports: 'iScroll'
         },
-    }
+    },
+
+    // cache bust (development only)
+    urlArgs: 'bust=' + (new Date()).getTime()
 });
 
 requirejs(['jquery', 'models/App', 'views/AppView'],  function($, App, AppView) {

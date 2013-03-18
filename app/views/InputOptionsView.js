@@ -25,8 +25,11 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'models/NodeOptio
                 'change:zoom': this.renderZoom
             });
 
-            this.inputVent.on('show:options', this.show);
-            this.inputVent.on('hide:options', this.hide);
+            this.inputVent.on({
+                'show:options'      : this.show,
+                'hide:options'      : this.hide,
+                'showNodeOptions'   : this.show,
+            });
         },
 
         render: function() {

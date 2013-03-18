@@ -8,35 +8,27 @@
         inputVent: InputVent,
 
         events: {
-            'mousedown .front'      : function(event) {
-                // prevent text select
-                event.preventDefault();
-                this.inputVent.trigger('mousedown:nodeFront', {
-                    x: this.model.get('x'),
-                    y: this.model.get('y'),
-                    node: this.model
-                });
-            },
+            'mousedown .front'      : 'handleMousedownFront',
 
-            // prevent text select
+                                    // prevent text select
             'mousedown .back'       : function(event) { event.preventDefault() },
-            // 'mouseenter .container' : function() { this.bubbleView.rise() },
-            // 'mouseleave .container' : function() { this.bubbleView.fall() },
-            'mouseenter .container' : function() { this.bubbleView.rise(); this.inputVent.trigger('mouseenter:nodeFront', { node: this.model }); },
-            'mouseleave .container' : function() { this.bubbleView.fall(); this.inputVent.trigger('mouseleave:nodeFront', {node: this.model }); },
 
-            // for when a user tries to place node on another node's border
+                                    // handle mouse- enter/leave
+            'mouseenter .container' : function() { this.bubbleView.rise(); this.inputVent.trigger('mouseenter:nodeFront', { node: this.model }); },
+            'mouseleave .container' : function() { this.bubbleView.fall(); this.inputVent.trigger('mouseleave:nodeFront', { node: this.model }); },
+
+                                    // handle clicks
             'click .container'      : function(){ this.bubbleView.handleNodeSelect(); },
             'dblclick .container'   : function(){ this.bubbleView.handleNodeSelect(); }
         },
 
         initialize: function() {
-            _(this).bindAll('render', 'transparentize', 'center', 'recenter');
+            _(this).bindAll('render', 'handleMousedownFront', 'center', 'fullCenter');
             var bubble = new Bubble({ parent: this.model });
             this.bubbleView = new BubbleView({ model: bubble });
 
             this.model.on({
-                'change:importance': this.recenter,
+                'change:importance': this.fullCenter,
                 'change:type': this.bubbleView.setType
             });
         },
@@ -50,54 +42,75 @@
             this.$el.append(this.bubbleView.$el);
             this.bubbleView.render();
 
-            // center node on x and y coordinate
-            this.$el.css({
-                left: (this.model.get('x') - this.model.get('baseBackSize') / 2) + 'rem',
-                top: (this.model.get('y') - this.model.get('baseBackSize') / 2) + 'rem'
-            });
+            _.defer(this.center);
 
             return this;
         },
 
-        transparentize: function() {
-            console.log('whoa');
+        // event handlers -----------------------------------------------------
+
+        handleMousedownFront: function(event) {
+            // prevent text select
+            event.preventDefault();
+            this.inputVent.trigger('mousedown:nodeFront', {
+                x: this.model.get('x'),
+                y: this.model.get('y'),
+                node: this.model
+            });
         },
+
+        // other methods ------------------------------------------------------
 
         center: function() {
+            var $container = this.$('.container');
+
             this.$el.css({
-                left: (this.model.get('x') - pxToRem(this.$('.container').outerWidth()) / 2) + 'rem',
-                top: (this.model.get('y') - pxToRem(this.$('.container').outerHeight()) / 2) + 'rem'
+                left: (this.model.get('x') - pxToRem($container.outerWidth()) / 2) + 'rem',
+                top: (this.model.get('y') - pxToRem($container.outerHeight()) / 2) + 'rem'
             });
         },
 
-        recenter: function() {
+        // center the node and all children dom elements after dimension/position changes have been made
+        fullCenter: function() {
+            var importance = this.model.get('importance'),
+                baseBackSize = this.model.get('baseBackSize'),
+                baseFrontSize = this.model.get('baseFrontSize'),
+                $back = this.$('.back'),
+                $front = this.$('.front');
+
             this.$el.css({
-                width: this.model.get('importance') * this.model.get('baseBackSize') + 'rem',
-                height: this.model.get('importance') * this.model.get('baseBackSize') + 'rem'
+                width: importance * baseBackSize + 'rem',
+                height: importance * baseBackSize + 'rem'
             });
             this.$('.back, .container').css({
-                width: this.model.get('importance') * this.model.get('baseBackSize') + 'rem',
-                height: this.model.get('importance') * this.model.get('baseBackSize') + 'rem'
+                width: importance * baseBackSize + 'rem',
+                height: importance * baseBackSize + 'rem'
             });
-            this.$('.back').css({
+
+            $back.css({
                 left: '50%',
                 top: '50%',
-                'margin-left': -1 * pxToRem(this.$('.back').outerWidth() / 2) + 'rem',
-                'margin-top': -1 * pxToRem(this.$('.back').outerHeight() / 2) + 'rem'
+                'margin-left': -1 * pxToRem($back.outerWidth() / 2) + 'rem',
+                'margin-top': -1 * pxToRem($back.outerHeight() / 2) + 'rem'
             });
-            this.$('.front').css({
-                width: this.model.get('importance') * this.model.get('baseFrontSize') + 'rem',
-                height: this.model.get('importance') * this.model.get('baseFrontSize') + 'rem'
+
+            $front.css({
+                width: importance * baseFrontSize + 'rem',
+                height: importance * baseFrontSize + 'rem',
             });
-            this.$('.front').css({
+
+            // call after .front dimensions changes
+            $front.css({
                 left: '50%',
                 top: '50%',
-                'margin-left': -1 * pxToRem(this.$('.front').outerWidth() / 2) + 'rem',
-                'margin-top': -1 * pxToRem(this.$('.front').outerHeight() / 2) + 'rem'
+                'margin-left': -1 * pxToRem($front.outerWidth() / 2) + 'rem',
+                'margin-top': -1 * pxToRem($front.outerHeight() / 2) + 'rem'
             });
+
             this.bubbleView.$el.css({
-                bottom: pxToRem(this.$('.back').outerHeight()) * 0.95 + 'rem'
+                bottom: pxToRem($back.outerHeight()) * 0.95 + 'rem'
             });
+
             this.center();
         }
 
