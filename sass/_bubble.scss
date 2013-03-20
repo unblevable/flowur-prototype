@@ -131,7 +131,7 @@ $bubble-color: $transparent-orange;
             font-style: italic;
         }
 
-        a.options {
+        .options {
 
             margin-right: 0.3rem;
             float: left;
@@ -140,7 +140,11 @@ $bubble-color: $transparent-orange;
             cursor: pointer;
         }
 
-        .options {
+        .delete-node {
+            float: right;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
         }
     }
 }

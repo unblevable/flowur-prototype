@@ -19,11 +19,11 @@
 
                                     // handle clicks
             'click .container'      : function(){ this.bubbleView.handleNodeSelect(); },
-            'dblclick .container'   : function(){ this.bubbleView.handleNodeSelect(); }
+            'dblclick .container'   : function(){ this.bubbleView.handleNodeSelect(); },
         },
 
         initialize: function() {
-            _(this).bindAll('render', 'handleMousedownFront', 'center', 'fullCenter', 'setType');
+            _(this).bindAll('render', 'handleMousedownFront', 'center', 'fullCenter', 'destroy');
             var bubble = new Bubble({ parent: this.model });
             this.bubbleView = new BubbleView({ model: bubble });
 
@@ -37,6 +37,14 @@
 
                     // trigger arrows to change color
                     this.inputVent.trigger('change:nodeType', model);
+                }).bind(this)
+            });
+
+            this.inputVent.on({
+                'destroy:bubble': (function(bubbleView) {
+                    if(this.bubbleView === bubbleView) {
+                        this.destroy();
+                    }
                 }).bind(this)
             });
         },
@@ -125,10 +133,17 @@
             this.center();
         },
 
-        setType: function() {
-            // this.inputView.trigger('change:nodeType', node);
-        }
+        destroy: function() {
+            this.stopListening(this.model);
+            this.model.destroy();
 
+            this.stopListening(this.inputVent);
+
+            this.undelegateEvents();
+            this.remove();
+
+            this.inputVent.trigger('destroy:node', this.model);
+        }
     });
 
     return NodeView;

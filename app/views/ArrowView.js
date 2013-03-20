@@ -8,10 +8,15 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent'], function($, _, B
         inputVent: InputVent,
 
         events: {
-            'click' : function() {
-                console.log('me: ' + this.model.cid);
-                console.log('fr: ' + this.model.get('fromNode').cid);
-                console.log('to: ' + this.model.get('toNode').cid);
+            'click' : function(event) {
+                this.model.erase();
+                this.destroy();
+            },
+            'mouseenter': function() {
+                this.$el.css('opacity', 0.65);
+            },
+            'mouseleave': function() {
+                this.enable();
             }
         },
 
@@ -55,6 +60,44 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent'], function($, _, B
                         }).bind(this));
                     }
                 }).bind(this),
+
+                'destroy:node'      : (function(node) {
+                    // super sloppy; needs cleanup and basic speed-up
+                    var fromNode = this.model.get('fromNode'),
+                        toNode = this.model.get('toNode'),
+                        nodeToDestroy;
+
+                    if(fromNode === node) {
+                        nodeToDestroy = fromNode;
+                        nodeToDestroy.removeOutArrow(this.model);
+                    } else if (toNode === node) {
+                        nodeToDestroy = toNode;
+                        nodeToDestroy.removeInArrow(this.model);
+                    }
+
+                    if(nodeToDestroy) {
+                        var fromNodes = nodeToDestroy.get('fromNodes'),
+                            toNodes = nodeToDestroy.get('toNodes');
+
+                        _(fromNodes).each((function(node, index) {
+                            node.removeToNode(nodeToDestroy);
+                            node.removeOutArrow(this.model);
+                            node.scaleToImportance();
+                            nodeToDestroy.removeToNode(node);
+                        }).bind(this));
+
+                        _(toNodes).each((function(node, index) {
+                            node.removeFromNode(nodeToDestroy);
+                            node.removeInArrow(this.model);
+                            node.scaleToImportance();
+                            nodeToDestroy.removeFromNode(node);
+                        }).bind(this));
+
+                        this.model.erase();
+                        this.destroy();
+                    }
+
+                }).bind(this)
             });
 
             this.model.on({
@@ -79,7 +122,12 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent'], function($, _, B
         },
 
         destroy: function(callback) {
+            this.model.destroy();
+
+            this.stopListening(this.model);
+            this.stopListening(this.inputVent);
             this.undelegateEvents();
+
             this.remove();
 
             if(typeof(callback) !== 'undefined') {

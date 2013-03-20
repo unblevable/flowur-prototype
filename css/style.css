@@ -620,15 +620,22 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   font-style: italic;
 }
 /* line 134, ../sass/_bubble.scss */
-.maximized-bubble .meta a.options {
+.maximized-bubble .meta .options {
   margin-right: 0.3rem;
   float: left;
   text-decoration: none;
   color: white;
   cursor: pointer;
 }
+/* line 143, ../sass/_bubble.scss */
+.maximized-bubble .meta .delete-node {
+  float: right;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
 
-/* line 148, ../sass/_bubble.scss */
+/* line 152, ../sass/_bubble.scss */
 .tip {
   margin-left: -0.45rem;
   border-left: 0.45rem dotted rgba(255, 255, 255, 0);
@@ -839,15 +846,22 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   font-style: italic;
 }
 /* line 134, ../sass/_bubble.scss */
-.maximized-bubble .meta a.options {
+.maximized-bubble .meta .options {
   margin-right: 0.3rem;
   float: left;
   text-decoration: none;
   color: white;
   cursor: pointer;
 }
+/* line 143, ../sass/_bubble.scss */
+.maximized-bubble .meta .delete-node {
+  float: right;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
 
-/* line 148, ../sass/_bubble.scss */
+/* line 152, ../sass/_bubble.scss */
 .tip {
   margin-left: -0.45rem;
   border-left: 0.45rem dotted rgba(255, 255, 255, 0);

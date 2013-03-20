@@ -141,12 +141,17 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         scaleToImportance: function() {
-            var numArrows = this.get('outArrows').length;
+            var type = this.get('type');
+            if(type === 'question' || type === 'statement') {
+                var numArrows = this.get('outArrows').length;
 
-            if(numArrows >= 3 && numArrows < 5) {
-                this.set('importance', 1.25);
-            } else if (numArrows >= 5) {
-                this.set('importance', 1.50);
+                if(numArrows < 3) {
+                    this.set('importance', 1.0);
+                } else if(numArrows >= 3 && numArrows < 5) {
+                    this.set('importance', 1.25);
+                } else if (numArrows >= 5) {
+                    this.set('importance', 1.50);
+                }
             }
         }
 

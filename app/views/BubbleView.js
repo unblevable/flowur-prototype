@@ -33,13 +33,14 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent'], function($, _, B
                                     // prevent bubble min/max from interfering
             'mousedown textarea'    : function(event) { event.stopPropagation(); },
 
-            'click .options'        : 'toggleNodeOptions'
+            'click .options'        : 'toggleNodeOptions',
+            'click .delete-node'    : 'destroy'
         },
 
         initialize: function() {
             _(this).bindAll('render', 'rise', 'fall', 'toggleNodeOptions');
             _(this).bindAll('maximize', 'minimize', 'center', 'handleNodeSelect', 'showIsEditing', 'hideIsEditing');
-            _(this).bindAll('setType');
+            _(this).bindAll('setType', 'destroy');
 
             this.inputVent.on({
                 'setSelectedNode'   : this.showIsEditing,
@@ -203,6 +204,18 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent'], function($, _, B
 
             this.$('.letter').text(this.model.get('letter'));
             this.$('textarea').attr('placeholder', this.model.get('placeholder'));
+        },
+
+        destroy: function() {
+            this.stopListening(this.model);
+            this.model.destroy();
+
+            this.stopListening(this.inputVent);
+
+            this.undelegateEvents();
+            this.remove();
+
+            this.inputVent.trigger('destroy:bubble', this);
         }
     });
 
