@@ -7,14 +7,55 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent'], function($, _, B
 
         inputVent: InputVent,
 
+        events: {
+            'click' : function() {
+                console.log('me: ' + this.model.cid);
+                console.log('fr: ' + this.model.get('fromNode').cid);
+                console.log('to: ' + this.model.get('toNode').cid);
+            }
+        },
+
         initialize: function() {
             _(this).bindAll('render');
             _(this).bindAll('destroy', 'disable', 'enable', 'transform');
 
-            this.inputVent.on('arrowSwitch', function(arrowToSwitch) {
-                if(this.model === arrowToSwitch) this.destroy();
-                arrowToSwitch.erase();
-            }.bind(this));
+            this.inputVent.on({
+                'arrowSwitch'       : (function(arrowToSwitch) {
+                    if(this.model === arrowToSwitch) this.destroy();
+                    arrowToSwitch.erase();
+                }).bind(this),
+
+                'change:nodeType'   : (function(node) {
+                    var fromNode = this.model.get('fromNode'),
+                        toNode = this.model.get('toNode'),
+                        classes = this.$el.attr('class').split(/\s+/),
+                        fromNodeType,
+                        toNodeType;
+
+                    if(this.model.get('fromNode') === node) {
+                        fromNodeType = node.get('type');
+                        toNodeType = toNode.get('type');
+                    } else if (this.model.get('toNode') === node) {
+                        fromNodeType = fromNode.get('type');
+                        toNodeType = node.get('type');
+                    }
+
+                    if(fromNodeType && toNodeType) {
+                        _(classes).each((function(klass, index) {
+                            // regex would be slower and this check is arguably simpler...
+                            // ...remove current class relating to type; assumes class relating to type has a hyphen in it
+                            if(klass.indexOf('-') !== -1) {
+                                this.$el.removeClass(klass);
+                                if(fromNodeType === toNodeType) {
+                                    this.$el.addClass(fromNodeType + '-arrow');
+                                } else {
+                                    this.$el.addClass(fromNodeType + '-' + toNodeType + '-arrow');
+                                }
+                            }
+                        }).bind(this));
+                    }
+                }).bind(this),
+            });
 
             this.model.on({
                 'change:x1 change:y1': function() {

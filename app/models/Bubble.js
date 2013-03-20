@@ -11,8 +11,6 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             text: '',                   // text
             count: 0,                   // character count
             maxCount: 140,              // max character count
-            letter: '',                 // letter shown in mini view
-            placeholder: ''             // placeholder text for textarea
         },
 
         initialize: function() {

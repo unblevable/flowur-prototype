@@ -96,28 +96,28 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   opacity: 0.5;
 }
 
-/* line 35, ../sass/_app.scss */
+/* line 39, ../sass/_app.scss */
 .question-arrow,
 .question-button,
 .question-slider {
   background-color: #fcb9c8;
 }
 
-/* line 41, ../sass/_app.scss */
+/* line 45, ../sass/_app.scss */
 .answer-arrow,
 .answer-button,
 .answer-slider {
   background-color: #58e0ef;
 }
 
-/* line 47, ../sass/_app.scss */
+/* line 51, ../sass/_app.scss */
 .statement-arrow,
 .statement-button,
 .statement-slider {
   background-color: #fecb28;
 }
 
-/* line 51, ../sass/_app.scss */
+/* line 55, ../sass/_app.scss */
 .question-answer-arrow {
   background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(25%, #fcb9c8), color-stop(100%, #58e0ef));
   background-image: -webkit-linear-gradient(left, #fcb9c8 25%, #58e0ef);
@@ -126,7 +126,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   background-image: linear-gradient(left, #fcb9c8 25%, #58e0ef);
 }
 
-/* line 54, ../sass/_app.scss */
+/* line 58, ../sass/_app.scss */
 .question-statement-arrow {
   background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(25%, #fcb9c8), color-stop(100%, #fecb28));
   background-image: -webkit-linear-gradient(left, #fcb9c8 25%, #fecb28);
@@ -135,7 +135,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   background-image: linear-gradient(left, #fcb9c8 25%, #fecb28);
 }
 
-/* line 57, ../sass/_app.scss */
+/* line 61, ../sass/_app.scss */
 .answer-question-arrow {
   background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(25%, #58e0ef), color-stop(100%, #fcb9c8));
   background-image: -webkit-linear-gradient(left, #58e0ef 25%, #fcb9c8);
@@ -144,7 +144,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   background-image: linear-gradient(left, #58e0ef 25%, #fcb9c8);
 }
 
-/* line 60, ../sass/_app.scss */
+/* line 64, ../sass/_app.scss */
 .answer-statement-arrow {
   background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(25%, #58e0ef), color-stop(100%, #fecb28));
   background-image: -webkit-linear-gradient(left, #58e0ef 25%, #fecb28);
@@ -153,7 +153,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   background-image: linear-gradient(left, #58e0ef 25%, #fecb28);
 }
 
-/* line 63, ../sass/_app.scss */
+/* line 67, ../sass/_app.scss */
 .statement-question-arrow {
   background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(25%, #fecb28), color-stop(100%, #fcb9c8));
   background-image: -webkit-linear-gradient(left, #fecb28 25%, #fcb9c8);
@@ -162,7 +162,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   background-image: linear-gradient(left, #fecb28 25%, #fcb9c8);
 }
 
-/* line 66, ../sass/_app.scss */
+/* line 70, ../sass/_app.scss */
 .statement-answer-arrow {
   background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(25%, #fecb28), color-stop(100%, #58e0ef));
   background-image: -webkit-linear-gradient(left, #fecb28 25%, #58e0ef);
@@ -171,51 +171,51 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   background-image: linear-gradient(left, #fecb28 25%, #58e0ef);
 }
 
-/* line 70, ../sass/_app.scss */
+/* line 74, ../sass/_app.scss */
 .question-bubble {
   background-color: rgba(250, 148, 172, 0.8);
 }
 
-/* line 74, ../sass/_app.scss */
+/* line 78, ../sass/_app.scss */
 .answer-bubble {
   background-color: rgba(53, 217, 236, 0.8);
 }
 
-/* line 78, ../sass/_app.scss */
+/* line 82, ../sass/_app.scss */
 .statement-bubble {
   background-color: rgba(254, 194, 2, 0.8);
 }
 
-/* line 82, ../sass/_app.scss */
+/* line 86, ../sass/_app.scss */
 .question-tip {
   border-top-color: rgba(250, 148, 172, 0.8);
 }
 
-/* line 86, ../sass/_app.scss */
+/* line 90, ../sass/_app.scss */
 .answer-tip {
   border-top-color: rgba(53, 217, 236, 0.8);
 }
 
-/* line 90, ../sass/_app.scss */
+/* line 94, ../sass/_app.scss */
 .statement-tip {
   border-top-color: rgba(254, 194, 2, 0.8);
 }
 
-/* line 94, ../sass/_app.scss */
+/* line 98, ../sass/_app.scss */
 .question-textarea {
   border-top-color: rgba(249, 124, 153, 0.8);
   border-bottom-color: rgba(249, 124, 153, 0.8);
   box-shadow: 0 1px 0 0 rgba(252, 197, 210, 0.8);
 }
 
-/* line 100, ../sass/_app.scss */
+/* line 104, ../sass/_app.scss */
 .answer-textarea {
   border-top-color: rgba(30, 213, 234, 0.8);
   border-bottom-color: rgba(30, 213, 234, 0.8);
   box-shadow: 0 1px 0 0 rgba(170, 239, 247, 0.8);
 }
 
-/* line 106, ../sass/_app.scss */
+/* line 110, ../sass/_app.scss */
 .statement-textarea {
   border-top-color: rgba(230, 175, 1, 0.8);
   border-bottom-color: rgba(230, 175, 1, 0.8);
@@ -523,7 +523,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   position: absolute;
   left: 50%;
   z-index: 400;
-  bottom: 7.0775rem;
+  bottom: 7.98rem;
   font-family: "futura-pt", Georgia;
   font-size: 1.25rem;
   font-weight: 500;
@@ -660,7 +660,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.6) inset;
 }
 
-/* line 116, ../sass/_app.scss */
+/* line 120, ../sass/_app.scss */
 #input {
   position: relative;
   overflow: hidden;
@@ -669,48 +669,48 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   background: radial-gradient(200px 45px, cover, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.1) 100%);
   width: 100%;
 }
-/* line 126, ../sass/_app.scss */
+/* line 130, ../sass/_app.scss */
 #input #input-container {
   width: 5000px;
   height: 5000px;
 }
-/* line 132, ../sass/_app.scss */
+/* line 136, ../sass/_app.scss */
 #input .node {
   position: absolute;
-  width: 7.45rem;
-  height: 7.45rem;
+  width: 8.4rem;
+  height: 8.4rem;
 }
-/* line 138, ../sass/_app.scss */
+/* line 142, ../sass/_app.scss */
 #input .node .container {
   border-radius: 50%;
-  height: 7.45rem;
-  width: 7.45rem;
+  height: 8.4rem;
+  width: 8.4rem;
 }
-/* line 152, ../sass/_app.scss */
+/* line 156, ../sass/_app.scss */
 #input .node .front {
   position: absolute;
   z-index: 300;
   border-radius: 50%;
   position: absolute;
   left: 50%;
-  width: 4.8rem;
-  margin-left: -2.4rem;
+  width: 5.4rem;
+  margin-left: -2.7rem;
   position: absolute;
   top: 50%;
-  height: 4.8rem;
-  margin-top: -2.4rem;
-  width: 4.8rem;
-  height: 4.8rem;
+  height: 5.4rem;
+  margin-top: -2.7rem;
+  width: 5.4rem;
+  height: 5.4rem;
   background-color: whitesmoke;
-  box-shadow: 0 6px 10px 2px rgba(0, 0, 0, 0.13);
+  box-shadow: 0 0.375rem 0.625rem 0.125rem rgba(0, 0, 0, 0.13);
 }
-/* line 165, ../sass/_app.scss */
+/* line 169, ../sass/_app.scss */
 #input .node .back {
   position: absolute;
   z-index: 100;
   border-radius: 50%;
-  width: 7.45rem;
-  height: 7.45rem;
+  width: 8.4rem;
+  height: 8.4rem;
   background-image: url("../app/assets/node-background.png");
   background-repeat: no-repeat;
   background-size: contain;
@@ -742,7 +742,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   position: absolute;
   left: 50%;
   z-index: 400;
-  bottom: 7.0775rem;
+  bottom: 7.98rem;
   font-family: "futura-pt", Georgia;
   font-size: 1.25rem;
   font-weight: 500;

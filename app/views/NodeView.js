@@ -23,13 +23,21 @@
         },
 
         initialize: function() {
-            _(this).bindAll('render', 'handleMousedownFront', 'center', 'fullCenter');
+            _(this).bindAll('render', 'handleMousedownFront', 'center', 'fullCenter', 'setType');
             var bubble = new Bubble({ parent: this.model });
             this.bubbleView = new BubbleView({ model: bubble });
 
             this.model.on({
-                'change:importance': this.fullCenter,
-                'change:type': this.bubbleView.setType
+                'change:importance': (function() {
+                    this.fullCenter();
+                    this.inputVent.trigger('change:nodeImportance', this.model.get('importance'));
+                }).bind(this),
+                'change:type': (function(model, type) {
+                    this.bubbleView.setType(model, type);
+
+                    // trigger arrows to change color
+                    this.inputVent.trigger('change:nodeType', model);
+                }).bind(this)
             });
         },
 
@@ -43,6 +51,7 @@
             this.bubbleView.render();
 
             _.defer(this.center);
+            _.defer(this.fullCenter);
 
             return this;
         },
@@ -76,7 +85,8 @@
                 baseBackSize = this.model.get('baseBackSize'),
                 baseFrontSize = this.model.get('baseFrontSize'),
                 $back = this.$('.back'),
-                $front = this.$('.front');
+                $front = this.$('.front'),
+                baseShadow = this.model.get('baseShadow');
 
             this.$el.css({
                 width: importance * baseBackSize + 'rem',
@@ -99,12 +109,13 @@
                 height: importance * baseFrontSize + 'rem',
             });
 
-            // call after .front dimensions changes
+            // call after .front dimensions change
             $front.css({
                 left: '50%',
                 top: '50%',
                 'margin-left': -1 * pxToRem($front.outerWidth() / 2) + 'rem',
-                'margin-top': -1 * pxToRem($front.outerHeight() / 2) + 'rem'
+                'margin-top': -1 * pxToRem($front.outerHeight() / 2) + 'rem',
+                'box-shadow': '0 ' + (pxToRem($front.width()) * (baseShadow.offsetY / baseFrontSize)) + 'rem ' + (pxToRem($front.width()) * (baseShadow.blurRadius / baseFrontSize)) + 'rem ' + (pxToRem($front.width()) * (baseShadow.spreadRadius / baseFrontSize)) + 'rem rgba(0, 0, 0, 0.13)'
             });
 
             this.bubbleView.$el.css({
@@ -112,6 +123,10 @@
             });
 
             this.center();
+        },
+
+        setType: function() {
+            // this.inputView.trigger('change:nodeType', node);
         }
 
     });

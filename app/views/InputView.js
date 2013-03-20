@@ -116,16 +116,19 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow', '
                     } else {
 
                         var fromNodeType = fromNode.get('type'),
-                            toNodeType = '';
+                            toNodeType,
+                            toNodeImportance;
 
                         // set type of toNode
                         if(fromNodeType === 'question') {
                             toNodeType = 'answer';
+                            toNodeImportance = 0.75;
                         } else if (fromNodeType === 'answer' || fromNodeType === 'statement') {
-                            toNodeType = 'question';
+                            toNodeType = 'question',
+                            toNodeImportance = 1.0;
                         }
 
-                        var newNode = this.attachNode(pxToRem(event.pageX), pxToRem(event.pageY), { type: toNodeType });
+                        var newNode = this.attachNode(pxToRem(event.pageX), pxToRem(event.pageY), { type: toNodeType, importance: toNodeImportance });
                         proxyArrow.set('toNode', newNode);
                     }
 
@@ -263,8 +266,6 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow', '
                 toNodeType =  toNode.get('type');
 
             if(fromNodeType !== toNodeType) {
-                // proxyArrowView.$('.arrow-container').removeClass(fromNodeType + '-arrow');
-                // proxyArrowView.$('.arrow-container').addClass(fromNodeType + '-' + toNodeType + '-arrow');
                 proxyArrowView.$el.removeClass(fromNodeType + '-arrow');
                 proxyArrowView.$el.addClass(fromNodeType + '-' + toNodeType + '-arrow');
             }
@@ -282,6 +283,10 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow', '
 
             toNode.addFromNode(fromNode);
             fromNode.addToNode(toNode);
+
+            // adjust importances
+            toNode.scaleToImportance();
+            fromNode.scaleToImportance();
 
         },
     });

@@ -16,10 +16,14 @@ $container-height: 100%;
 $front-background-image: '../app/assets/node-foreground.png';
 $front-width: 4.8rem;
 $front-height: 4.8rem;
+$front-width: 5.4rem;
+$front-height: 5.4rem;
 
 $back-background-image: '../app/assets/node-background.png';
 $back-width: 7.45rem;
 $back-height: 7.45rem;
+$back-width: 8.4rem;
+$back-height: 8.4rem;
 
 $question-color                 : $pink;
 $answer-color                   : $blue;
@@ -159,7 +163,7 @@ $transparent-statement-color    : transparentize($statement-color, 0.2);
             width: $front-width;
             height: $front-height;
             background-color: darken(#ffffff, 4%);
-            box-shadow: 0 6px 10px 2px rgba(0, 0, 0, 0.13);
+            box-shadow: 0 0.375rem 0.625rem 0.125rem rgba(0, 0, 0, 0.13);
         }
 
         .back {

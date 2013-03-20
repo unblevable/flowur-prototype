@@ -10,11 +10,15 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             isImportanceUserSet: false,
 
             // rem
-            baseBackSize: 7.45,
-            baseFrontSize: 4.8,
+            baseBackSize: 8.4,
+            baseFrontSize: 5.4,
+            baseShadow: {
+                offsetY: 0.375,
+                blurRadius: 0.625,
+                spreadRadius: 0.125
+            },
 
             // keep references to both arrows and nodes for speed
-
             outArrows: null,                        // arrows that point away from the node
             inArrows:null,                          // arrows that point toward the node
             // array of all arrows for convenience
@@ -33,6 +37,9 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 
             if(typeof options.type !== 'undefined') {
                 this.set('type', options.type);
+            }
+            if(typeof options.importance !== 'undefined') {
+                this.set('importance', options.importance);
             }
         },
 
@@ -131,6 +138,16 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
                     if(!this.get(argument)) this.set(argument, []);
                 }
             }.bind(this));
+        },
+
+        scaleToImportance: function() {
+            var numArrows = this.get('outArrows').length;
+
+            if(numArrows >= 3 && numArrows < 5) {
+                this.set('importance', 1.25);
+            } else if (numArrows >= 5) {
+                this.set('importance', 1.50);
+            }
         }
 
         // non-Backbone methods -----------------------------------------------

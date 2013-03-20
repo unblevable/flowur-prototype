@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'models/NodeOptions', 'views/NodeOptionsView', 'jqueryui'], function($, _, Backbone, InputVent, NodeOptions, NodeOptionsView) {
+define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/NodeOptions', 'views/NodeOptionsView'], function($, _, Backbone, InputVent, NodeOptions, NodeOptionsView) {
     var InputOptionsView = Backbone.View.extend({
 
         id: 'input-options',

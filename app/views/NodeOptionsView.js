@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'jqueryui'], function($, _, Backbone, InputVent) {
+define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent'], function($, _, Backbone, InputVent) {
     var NodeOptionsView = Backbone.View.extend({
 
         id: 'node-options',
@@ -40,12 +40,13 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'jqueryui'], func
         },
 
         initialize: function() {
-            _(this).bindAll('render', 'lighten', 'darken', 'syncType');
+            _(this).bindAll('render',  'lighten', 'darken', 'syncType');
             _(this).bindAll('show', 'hide', 'setSelectedNode', 'unsetSelectedNode', 'syncType', 'syncImportance');
 
             this.inputVent.on({
-                'showNodeOptions'   : this.show,
-                'hideNodeOptions'   : this.hide
+                'showNodeOptions'       : this.show,
+                'hideNodeOptions'       : this.hide,
+                'change:nodeImportance' : this.syncImportance
             });
         },
 
@@ -53,9 +54,9 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'jqueryui'], func
             this.$el.html(this.template);
 
             this.importanceSlider = this.$('#importance-slider').slider({
-                max: 1.6,
-                min: 1.0,
-                step: 0.1,
+                max: 1.5,
+                min: 0.75,
+                step: 0.25,
                 value: 1.0,
                 range: 'min',
 
@@ -144,7 +145,7 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'jqueryui'], func
         },
 
         syncImportance: function(importance) {
-            this.$('#importance-value').text(importance.toFixed(1));
+            this.$('#importance-value').text(importance.toFixed(2));
             this.importanceSlider.slider('value', importance);
         }
     });
