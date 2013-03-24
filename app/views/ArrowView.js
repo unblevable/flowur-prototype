@@ -97,6 +97,32 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent'], function($, _, B
                         this.destroy();
                     }
 
+                }).bind(this),
+
+                'drag:node'     : (function(position, node) {
+                    var fromNode = this.model.get('fromNode'),
+                        toNode = this.model.get('toNode');
+
+                    if(fromNode === node) {
+                        this.model.set('x1', pxToRem(position.left));
+                        this.model.set('y1', pxToRem(position.top));
+                        this.$el.css({
+                            left: this.model.get('x1') + pxToRem(node.get('view').$('.container').outerWidth()) / 2 + 'rem',
+                            top: this.model.get('y1') + pxToRem(node.get('view').$('.container').outerHeight()) / 2 + 'rem'
+                        });
+                    } else if (toNode === node) {
+                        this.model.set('x2', pxToRem(position.left));
+                        this.model.set('y2', pxToRem(position.top));
+                    }
+
+                    if(fromNode === node || toNode === node) {
+                        this.transform({
+                            x1: this.model.get('x1'),
+                            x2: this.model.get('x2'),
+                            y1: this.model.get('y1'),
+                            y2: this.model.get('y2')
+                        });
+                    }
                 }).bind(this)
             });
 

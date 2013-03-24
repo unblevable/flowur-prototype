@@ -46,7 +46,12 @@ define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent'], function($, _
             this.inputVent.on({
                 'showNodeOptions'       : this.show,
                 'hideNodeOptions'       : this.hide,
-                'change:nodeImportance' : this.syncImportance
+                'change:nodeImportance' : this.syncImportance,
+                'delete:node'           : (function(node) {
+                    if(this.model.get('selectedNode') === node) {
+                        this.hide();
+                    }
+                }).bind(this)
             });
         },
 
@@ -138,7 +143,14 @@ define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent'], function($, _
                 this.$('.' + currentType + '-button .selected').show();
 
                 // change slider background
-                this.$('#importance-slider .ui-slider-range').removeClass(previousType + '-slider');
+                // this.$('#importance-slider .ui-slider-range').removeClass(previousType + '-slider');
+                _(this.$('#importance-slider .ui-slider-range').attr('class').split(/\s+/)).each((function(klass, index) {
+                    if(klass.contains('answer') || klass.contains('question') || klass.contains('statement')) {
+                        console.log(klass);
+                        this.$('#importance-slider .ui-slider-range').removeClass(klass);
+                    }
+                }).bind(this));
+
                 this.$('#importance-slider .ui-slider-range').addClass(currentType + '-slider');
             }
 

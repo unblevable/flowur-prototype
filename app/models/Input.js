@@ -1,11 +1,11 @@
-define(['jquery', 'underscore', 'backbone', 'collections/Nodes'], function($, _, Backbone, Nodes) {
+define(['jquery', 'underscore', 'backbone', 'collections/Nodes', 'collections/Arrows'], function($, _, Backbone, Nodes, Arrows) {
     var Input = Backbone.Model.extend({
 
         defaults: {
             parent: null,
             css: null,
             nodes: new Nodes(),
-            arrows: null,
+            arrows: new Arrows(),
             selectedNodes: null,
 
             isOptionsToggleActive: true,

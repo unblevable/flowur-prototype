@@ -22,6 +22,7 @@ define(['backbone'], function(Backbone) {
             fromNodeHasMaxArrows: false,
             toNodeHasMaxArrows: false,
             isDisabled: false,
+            isAttached: false
         },
 
         initialize: function() {

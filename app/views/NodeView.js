@@ -143,6 +143,7 @@
             this.remove();
 
             this.inputVent.trigger('destroy:node', this.model);
+            this.inputVent.trigger('delete:node', this.model);
         }
     });
 

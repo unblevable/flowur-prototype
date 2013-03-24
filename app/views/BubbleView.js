@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'vents/InputVent'], function($, _, Backbone, InputVent) {
+define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'collections/Nodes'], function($, _, Backbone, InputVent, Nodes) {
     var BubbleView = Backbone.View.extend({
 
         className: 'bubble clearfix',
@@ -34,7 +34,11 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent'], function($, _, B
             'mousedown textarea'    : function(event) { event.stopPropagation(); },
 
             'click .options'        : 'toggleNodeOptions',
-            'click .delete-node'    : 'destroy'
+            'click .delete-node'    : function() {
+                if(!this.model.get('parent').get('isLastNode')) {
+                    this.destroy();
+                }
+            }
         },
 
         initialize: function() {
@@ -44,7 +48,15 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent'], function($, _, B
 
             this.inputVent.on({
                 'setSelectedNode'   : this.showIsEditing,
-                'unsetSelectedNode' : this.hideIsEditing
+                'unsetSelectedNode' : this.hideIsEditing,
+                'addOrRemove:node'  : (function(lastNode) {
+                    var parent = this.model.get('parent');
+                    if(lastNode === parent) {
+                        parent.set('isLastNode', true);
+                    } else {
+                        parent.set('isLastNode', false);
+                    }
+                }).bind(this)
             });
 
             this.model.on({

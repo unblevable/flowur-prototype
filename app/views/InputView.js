@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow', 'models/InputOptions', 'models/Node', 'views/ArrowView', 'views/InputOptionsView', 'views/NodeView'], function($, _, Backbone, InputVent, Arrow,  InputOptions, Node, ArrowView, InputOptionsView, NodeView) {
+define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow', 'models/InputOptions', 'models/Node', 'views/ArrowView', 'views/InputOptionsView', 'views/NodeView'], function($, _, Backbone, InputVent, Arrow,  InputOptions, Node, ArrowView, InputOptionsView, NodeView) {
     var InputView = Backbone.View.extend({
 
         id: 'input',
@@ -248,10 +248,19 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow', '
             }, options),
                 nodeView = new NodeView({ model: node });
 
+            node.set('view', nodeView);
+
             this.model.get('nodes').add(node);
 
             this.$els.container.append(nodeView.$el);
             nodeView.render();
+
+            nodeView.$el.draggable({
+                handle: '.back',
+                drag: (function(event, ui) {
+                    this.inputVent.trigger('drag:node', ui.offset, node);
+                }).bind(this)
+            });
 
             return node;
         },
@@ -264,6 +273,9 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow', '
                 toNode = proxyArrow.get('toNode'),
                 fromNodeType = fromNode.get('type'),
                 toNodeType =  toNode.get('type');
+
+            this.model.get('arrows').add(proxyArrow);
+            proxyArrow.set('isAttached', true);
 
             if(fromNodeType !== toNodeType) {
                 proxyArrowView.$el.removeClass(fromNodeType + '-arrow');

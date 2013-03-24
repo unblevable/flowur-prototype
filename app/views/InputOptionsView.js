@@ -29,6 +29,12 @@ define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/NodeOp
                 'show:options'      : this.show,
                 'hide:options'      : this.hide,
                 'showNodeOptions'   : this.show,
+                'addOrRemove:node'      : (function(lastNode, length) {
+                    this.$('.node-count strong').text(length);
+                }).bind(this),
+                'addOrRemove:arrow' : (function(length) {
+                    this.$('.arrow-count strong').text(length);
+                }).bind(this)
             });
         },
 

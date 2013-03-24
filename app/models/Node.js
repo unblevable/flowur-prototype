@@ -28,6 +28,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             toNodes: null,                          // nodes that the node connects (forward) to
             // could be used for a fancy highlight effect
             nodes: null,
+
+            isLastNode: true
         },
 
         initialize: function(attributes, options) {
