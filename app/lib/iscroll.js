@@ -102,7 +102,7 @@ var m = Math,
 			useTransform: true,
 			useTransition: false,
 			topOffset: 0,
-			checkDOMChanges: false,		// Experimental
+			checkDOMChanges: true,		// Experimental
 			handleClick: true,
 
 			// Scrollbar
@@ -993,6 +993,14 @@ iScroll.prototype = {
 
 		that._startAni();
 	},
+
+    getScrollX: function() {
+        return this.x;
+    },
+
+    getScrollY: function() {
+        return this.y;
+    },
 
 	scrollToElement: function (el, time) {
 		var that = this, pos;
