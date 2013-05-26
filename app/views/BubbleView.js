@@ -1,11 +1,19 @@
-define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'collections/Nodes'], function($, _, Backbone, InputVent, Nodes) {
+define(function(require, exports, module) {
+    var $                       = require('jquery'),
+        _                       = require('underscore'),
+        Backbone                = require('backbone'),
+        InputVent               = require('vents/InputVent'),
+        Nodes                   = require('collections/Nodes'),
+        MinimizedBubbleTemplate = require('text!templates/minimized_bubble.html');
+        MaximizedBubbleTemplate = require('text!templates/maximized_bubble.html');
+
     var BubbleView = Backbone.View.extend({
 
         className: 'bubble clearfix',
 
-        minimizedTemplate: _.template($('#minimized-bubble-template').html()),
+        minimizedTemplate: _.template(MinimizedBubbleTemplate),
 
-        maximizedTemplate: _.template($('#maximized-bubble-template').html()),
+        maximizedTemplate: _.template(MaximizedBubbleTemplate),
 
         // custom properties --------------------------------------------------
 
@@ -112,12 +120,10 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'collections/Node
             this.$el.removeClass('minimized-bubble');
             this.$el.addClass('maximized-bubble');
 
-
             this.setType(node, type);
 
             this.center();
 
-            this.$('textarea').focus();
             this.$('textarea').select();
 
             if(this.model.get('parent').get('isEditingOptions')) {

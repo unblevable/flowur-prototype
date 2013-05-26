@@ -1,11 +1,17 @@
-define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent'], function($, _, Backbone, InputVent) {
+define(function(require, exports, module) {
+    var $                   = require('jquery-ui'),
+        _                   = require('underscore'),
+        Backbone            = require('backbone'),
+        InputVent           = require('vents/InputVent'),
+        NodeOptionsTemplate = require('text!templates/node_options.html');
+
     var NodeOptionsView = Backbone.View.extend({
 
         id: 'node-options',
 
         className: 'clearfix',
 
-        template: _.template($('#node-options-template').html()),
+        template: _.template(NodeOptionsTemplate),
 
         // custom properties --------------------------------------------------
         inputVent: InputVent,
@@ -145,8 +151,7 @@ define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent'], function($, _
                 // change slider background
                 // this.$('#importance-slider .ui-slider-range').removeClass(previousType + '-slider');
                 _(this.$('#importance-slider .ui-slider-range').attr('class').split(/\s+/)).each((function(klass, index) {
-                    if(klass.contains('answer') || klass.contains('question') || klass.contains('statement')) {
-                        console.log(klass);
+                    if(_(klass).contains('answer') || _(klass).contains('question') || _(klass).contains('statement')) {
                         this.$('#importance-slider .ui-slider-range').removeClass(klass);
                     }
                 }).bind(this));

@@ -1,11 +1,19 @@
-define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/NodeOptions', 'views/NodeOptionsView'], function($, _, Backbone, InputVent, NodeOptions, NodeOptionsView) {
+define(function(require, exports, module) {
+    var $                       = require('jquery-ui'),
+        _                       = require('underscore'),
+        Backbone                = require('backbone'),
+        InputVent               = require('vents/InputVent'),
+        NodeOptions             = require('models/NodeOptions'),
+        NodeOptionsView         = require('views/NodeOptionsView');
+        InputOptionsTemplate    = require('text!templates/input_options.html');
+
     var InputOptionsView = Backbone.View.extend({
 
         id: 'input-options',
 
         className: 'clearfix',
 
-        template: _.template($('#input-options-template').html()),
+        template: _.template(InputOptionsTemplate),
 
         // custom properties --------------------------------------------------
         inputVent: InputVent,
@@ -51,6 +59,7 @@ define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/NodeOp
 
                 slide: function(event, ui) {
                     this.model.set('zoom', ui.value);
+                    this.inputVent.trigger('slide:zoomSlider', ui.value);
                 }.bind(this)
             });
 

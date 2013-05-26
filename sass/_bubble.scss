@@ -32,7 +32,7 @@ $bubble-color: $transparent-orange;
     font-weight: 500;
     color: #ffffff;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15);
-    box-shadow: 0 3px 5px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.1);
 }
 
 .minimized-bubble {
@@ -107,8 +107,7 @@ $bubble-color: $transparent-orange;
         font-family: "nimbus-sans";
         font-size: 0.9rem;
         line-height: 1.0rem;
-        background-color: rgba(245, 245, 245, 1.0);
-        // box-shadow: 0 1px 0 0 lighten($bubble-color, 25%);
+        // background-color: rgba(245, 245, 245, 1.0);
         resize: none;
     }
 
@@ -152,8 +151,8 @@ $bubble-color: $transparent-orange;
 .tip {
 
     margin-left: -1 * $triangle-width;
-    border-left: $triangle-width dotted rgba(255, 255, 255, 0);
-    border-right: $triangle-width dotted rgba(255, 255, 255, 0);
+    border-left: $triangle-width dotted transparent;
+    border-right: $triangle-width dotted transparent;
     border-top-width: $triangle-height;
     border-top-style: solid;
     z-index: 399;

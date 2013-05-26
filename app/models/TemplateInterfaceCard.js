@@ -2,15 +2,13 @@ define(function(require, exports, module) {
     var _           = require('underscore'),
         Backbone    = require('backbone');
 
-    var InputOptions = Backbone.Model.extend({
+    var TemplateInterfaceCard = Backbone.Model.extend({
 
-        defaults: {
-            zoom: 100,
-        },
+        defaults: {},
 
         initialize: function() {
         }
     });
 
-    return InputOptions;
+    return TemplateInterfaceCard;
 });

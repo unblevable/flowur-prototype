@@ -1,9 +1,12 @@
-define(['jquery', 'underscore', 'backbone', 'vents/InputVent'], function($, _, Backbone, InputVent) {
+define(function(require, exports, module) {
+    var $           = require('jquery'),
+        _           = require('underscore'),
+        Backbone    = require('backbone'),
+        InputVent   = require('vents/InputVent');
+
     var ArrowView = Backbone.View.extend({
 
         className: 'arrow',
-
-        template: _.template($('#arrow-template').html()),
 
         inputVent: InputVent,
 
@@ -11,6 +14,8 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent'], function($, _, B
             'click' : function(event) {
                 this.model.erase();
                 this.destroy();
+                this.model.get('fromNode').scaleToImportance();
+                this.model.get('toNode').scaleToImportance();
             },
             'mouseenter': function() {
                 this.$el.css('opacity', 0.65);
@@ -37,27 +42,29 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent'], function($, _, B
                         fromNodeType,
                         toNodeType;
 
-                    if(this.model.get('fromNode') === node) {
-                        fromNodeType = node.get('type');
-                        toNodeType = toNode.get('type');
-                    } else if (this.model.get('toNode') === node) {
-                        fromNodeType = fromNode.get('type');
-                        toNodeType = node.get('type');
-                    }
+                    if(this.model.get('isAttached')) {
+                        if(this.model.get('fromNode') === node) {
+                            fromNodeType = node.get('type');
+                            toNodeType = toNode.get('type');
+                        } else if (this.model.get('toNode') === node) {
+                            fromNodeType = fromNode.get('type');
+                            toNodeType = node.get('type');
+                        }
 
-                    if(fromNodeType && toNodeType) {
-                        _(classes).each((function(klass, index) {
-                            // regex would be slower and this check is arguably simpler...
-                            // ...remove current class relating to type; assumes class relating to type has a hyphen in it
-                            if(klass.indexOf('-') !== -1) {
-                                this.$el.removeClass(klass);
-                                if(fromNodeType === toNodeType) {
-                                    this.$el.addClass(fromNodeType + '-arrow');
-                                } else {
-                                    this.$el.addClass(fromNodeType + '-' + toNodeType + '-arrow');
+                        if(fromNodeType && toNodeType) {
+                            _(classes).each((function(klass, index) {
+                                // regex would be slower and this check is arguably simpler...
+                                // ...remove current class relating to type; assumes class relating to type has a hyphen in it
+                                if(klass.indexOf('-') !== -1) {
+                                    this.$el.removeClass(klass);
+                                    if(fromNodeType === toNodeType) {
+                                        this.$el.addClass(fromNodeType + '-arrow');
+                                    } else {
+                                        this.$el.addClass(fromNodeType + '-' + toNodeType + '-arrow');
+                                    }
                                 }
-                            }
-                        }).bind(this));
+                            }).bind(this));
+                        }
                     }
                 }).bind(this),
 
@@ -103,43 +110,51 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent'], function($, _, B
                     var fromNode = this.model.get('fromNode'),
                         toNode = this.model.get('toNode');
 
+                    if(fromNode === node || toNode == node) {
+                        var weight = this.model.get('weight'),
+                            nodeWidth = pxToRem(node.get('view').$el.outerWidth()),
+                            nodeHeight = pxToRem(node.get('view').$el.outerHeight()),
+                            positionLeft = pxToRem(position.left),
+                            positionTop = pxToRem(position.top);
+
+                        node.set('isDragging', true);
+                    }
+
                     if(fromNode === node) {
-                        this.model.set('x1', pxToRem(position.left));
-                        this.model.set('y1', pxToRem(position.top));
+                        this.model.set('x1', positionLeft);
+                        this.model.set('y1', positionTop);
                         this.$el.css({
-                            left: this.model.get('x1') + pxToRem(node.get('view').$('.container').outerWidth()) / 2 + 'rem',
-                            top: this.model.get('y1') + pxToRem(node.get('view').$('.container').outerHeight()) / 2 + 'rem'
+                            left: this.model.get('x1') + nodeWidth / 2 + 'rem',
+                            top: this.model.get('y1') + nodeHeight / 2 - weight / 2 + 'rem'
                         });
+                        fromNode.set('x', this.model.get('x1') + nodeWidth / 2);
+                        fromNode.set('y', this.model.get('y1') + nodeHeight / 2);
                     } else if (toNode === node) {
-                        this.model.set('x2', pxToRem(position.left));
-                        this.model.set('y2', pxToRem(position.top));
+                        this.model.set('x2', positionLeft);
+                        this.model.set('y2', positionTop);
+                        toNode.set('x', this.model.get('x2') + nodeWidth / 2);
+                        toNode.set('y', this.model.get('y2') + nodeHeight / 2);
                     }
 
-                    if(fromNode === node || toNode === node) {
+                    // isAttached prevents zombie arrows from listening to event
+                    if(this.model.get('isAttached') && (fromNode === node || toNode === node)) {
                         this.transform({
-                            x1: this.model.get('x1'),
-                            x2: this.model.get('x2'),
-                            y1: this.model.get('y1'),
-                            y2: this.model.get('y2')
+                            x1: fromNode.get('x'),
+                            y1: fromNode.get('y'),
+                            x2: toNode.get('x'),
+                            y2: toNode.get('y')
                         });
                     }
-                }).bind(this)
-            });
-
-            this.model.on({
-                'change:x1 change:y1': function() {
-                    this.model.set('x1Px', this.model.get('x1'));
-                    this.model.set('y1Px', this.model.get('y1'));
-                }.bind(this)
+                }).bind(this),
             });
         },
 
         render: function() {
-            this.$el.html(this.template);
+            var weight = this.model.get('weight');
 
             this.$el.css({
-                top: (this.model.get('y1') - this.model.get('weight')) + 'rem',
-                left: this.model.get('x1') + 'rem'
+                left: this.model.get('x1') + 'rem',
+                top: this.model.get('y1') - weight / 2  + 'rem'
             });
 
             this.enable();
@@ -189,6 +204,8 @@ define(['jquery', 'underscore', 'backbone', 'vents/InputVent'], function($, _, B
 
             if(arguments.length == 2) {
                 units = (usePx === true) ? 'px' : 'rem'
+            } else {
+                units = 'rem'
             }
 
             // css width translates to the length of the arrow (css height translates to the weight of the arrow)

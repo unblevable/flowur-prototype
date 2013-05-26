@@ -1,13 +1,22 @@
- define(['jquery', 'underscore', 'backbone', 'vents/InputVent', 'models/Bubble', 'views/BubbleView'], function($, _, Backbone, InputVent, Bubble, BubbleView) {
+define(function(require, exports, module) {
+    var $               = require('jquery'),
+        _               = require('underscore'),
+        Backbone        = require('backbone'),
+        InputVent       = require('vents/InputVent'),
+        Bubble          = require('models/Bubble'),
+        BubbleView      = require('views/BubbleView');
+        NodeTemplate    = require('text!templates/node.html');
+
     var NodeView = Backbone.View.extend({
 
         className: 'node',
 
-        template: _.template($('#node-template').html()),
+        template: _.template(NodeTemplate),
 
         inputVent: InputVent,
 
         events: {
+            'mousedown'             : function(event) { event.stopPropagation(); },
             'mousedown .front'      : 'handleMousedownFront',
 
                                     // prevent text select
@@ -18,12 +27,13 @@
             'mouseleave .container' : function() { this.bubbleView.fall(); this.inputVent.trigger('mouseleave:nodeFront', { node: this.model }); },
 
                                     // handle clicks
-            'click .container'      : function(){ this.bubbleView.handleNodeSelect(); },
+            'click .container'      : function(){ if(!this.model.get('isDragging')) this.bubbleView.handleNodeSelect();},
             'dblclick .container'   : function(){ this.bubbleView.handleNodeSelect(); },
         },
 
         initialize: function() {
             _(this).bindAll('render', 'handleMousedownFront', 'center', 'fullCenter', 'destroy');
+
             var bubble = new Bubble({ parent: this.model });
             this.bubbleView = new BubbleView({ model: bubble });
 
@@ -45,7 +55,7 @@
                     if(this.bubbleView === bubbleView) {
                         this.destroy();
                     }
-                }).bind(this)
+                }).bind(this),
             });
         },
 

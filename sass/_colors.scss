@@ -1,6 +1,7 @@
 $light-black:   rgb(40, 40, 40);
 
 $gray:          rgb(135, 135, 135);
+// change the names of these colors
 $dark-gray:     rgb(200, 200, 200);
 $darker-gray:   rgb(210, 210, 210);
 
@@ -13,6 +14,9 @@ $orange:        rgb(248, 200, 46);
 $transparent-orange: rgba(254, 194, 2, 0.8);
 $transparent-blue-green: rgba(53, 217, 236, 0.8);
 $transparent-magenta: rgba(250, 148, 172, 0.8);
-$orange: rgba(254, 194, 2, 1.0);
-$blue: rgba(53, 217, 236, 1.0);
-$pink: rgba(250, 148, 172, 1.0);
+$transparent-orange: rgb(254, 194, 2);
+$transparent-blue-green: rgb(53, 217, 236);
+$transparent-magenta: rgb(250, 148, 172);
+$orange: rgb(254, 194, 2);
+$blue: rgb(53, 217, 236);
+$pink: rgb(250, 148, 172);

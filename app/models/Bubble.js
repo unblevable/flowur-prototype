@@ -1,4 +1,7 @@
-define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
+define(function(require, exports, module) {
+    var _           = require('underscore'),
+        Backbone    = require('backbone');
+
     var Bubble = Backbone.Model.extend({
 
         defaults: {

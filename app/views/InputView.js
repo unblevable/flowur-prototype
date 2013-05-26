@@ -1,9 +1,22 @@
-define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow', 'models/InputOptions', 'models/Node', 'views/ArrowView', 'views/InputOptionsView', 'views/NodeView'], function($, _, Backbone, InputVent, Arrow,  InputOptions, Node, ArrowView, InputOptionsView, NodeView) {
+define(function(require, exports, module) {
+    var $                       = require('jquery'),
+        _                       = require('underscore'),
+        Backbone                = require('backbone'),
+        InputVent               = require('vents/InputVent'),
+        Arrow                   = require('models/Arrow'),
+        InputOptions            = require('models/InputOptions'),
+        Node                    = require('models/Node'),
+        ArrowView               = require('views/ArrowView'),
+        InputOptionsView        = require('views/InputOptionsView'),
+        NodeView                = require('views/NodeView'),
+        InputTemplate           = require('text!templates/input.html'),
+        InputOptionsTemplate    = require('text!templates/input_options.html');
+
     var InputView = Backbone.View.extend({
 
         id: 'input',
 
-        template: _.template($('#input-template').html()),
+        template: _.template(InputTemplate),
 
         inputVent: InputVent,
 
@@ -13,7 +26,7 @@ define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow'
         events: {
             'mousemove'             : 'handleArrowDrag',
             'mouseup'               : 'handleArrowAttachment',
-            'click .options-toggle' : 'toggleOptionsToggle'
+            'click .options-toggle' : 'toggleOptionsToggle',
         },
 
         initialize: function() {
@@ -30,6 +43,19 @@ define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow'
                 'activate:optionsToggle'    : this.activateOptionsToggle,
                 'deactivate:optionsToggle'  : this.deactivateOptionsToggle,
                 'showNodeOptions'           : this.activateOptionsToggle,
+                'slide:zoomSlider'          : (function(value) {
+                    var zoom = value / 100;
+                    this.$('#input-container').css({
+                        zoom: zoom,
+                        '-moz-transform-origin': 'center 0',
+                        '-moz-transform': 'scale(' + zoom + ')',
+                        '-o-transform-origin': 'center 0',
+                        '-o-transform': 'scale(' + zoom + ')',
+                        '-webkit-transform-origin': 'center 0',
+                        '-webkit-transform': 'scale(' + zoom + ')',
+
+                    });
+                }).bind(this)
             });
         },
 
@@ -48,6 +74,24 @@ define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow'
 
             this.attachNode(this.model.get('startNodeX'), this.model.get('startNodeY'));
 
+            var model = this.model;
+
+            _.defer(function() {
+                iScroller = new iScroll('input-scroll', {
+                    lockDirection: false,
+                    zoom: true,
+                    vScroll: true,
+                    momentum: false,
+                    bounce: false,
+                    hScrollbar: false,
+                    vScrollbar: false,
+                    onScrollEnd: function() {
+                        model.set('scrollX', this.x);
+                        model.set('scrollY', this.y);
+                    }
+                });
+            });
+
             return this;
         },
 
@@ -57,16 +101,18 @@ define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow'
         handleArrowDrag: function(event) {
             if(this.model.get('isArrowDragging')) {
                 var proxyArrowView = this.proxyArrowView,
-                    proxyArrow = proxyArrowView.model;
+                    proxyArrow = proxyArrowView.model,
+                    weightPx = proxyArrow.get('weightPx');
 
                 proxyArrowView.transform({
 
                     // stick with px for these calculations for speed
-                    x1: proxyArrow.get('x1Px'),
-                    y1: proxyArrow.get('y1Px'),
-                    x2: event.pageX,
-                    y2: event.pageY
+                    x1: remToPx(proxyArrow.get('x1')),
+                    y1: remToPx(proxyArrow.get('y1')),
+                    x2: event.pageX - this.model.get('scrollX'),
+                    y2: event.pageY - this.model.get('scrollY')
                 }, true);
+
 
                 if(proxyArrow.get('toNodeHasMaxArrows')
                     || proxyArrow.get('fromNodeHasMaxArrows')
@@ -128,7 +174,7 @@ define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow'
                             toNodeImportance = 1.0;
                         }
 
-                        var newNode = this.attachNode(pxToRem(event.pageX), pxToRem(event.pageY), { type: toNodeType, importance: toNodeImportance });
+                        var newNode = this.attachNode(pxToRem(event.pageX - this.model.get('scrollX')), pxToRem(event.pageY - this.model.get('scrollY')), { type: toNodeType, importance: toNodeImportance });
                         proxyArrow.set('toNode', newNode);
                     }
 
@@ -167,13 +213,14 @@ define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow'
             if(!this.model.get('isArrowDragging')) {
                 this.model.set('isArrowDragging', true);
 
-                this.proxyArrowView = new ArrowView({
-                    model: new Arrow({
+                var arrow = new Arrow({
                         x1: options.x,
                         y1: options.y,
                         x1Px: remToPx(options.x),
                         y1Px: remToPx(options.y),
-                    })
+                });
+                this.proxyArrowView = new ArrowView({
+                    model: arrow
                 });
 
                 var proxyArrowView = this.proxyArrowView,
@@ -244,7 +291,7 @@ define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow'
             if(typeof options === 'undefined') options = {};
 
             var node = new Node({
-                x: x, y: y
+                x: x, y: y - pxToRem(this.$el.offset().top)
             }, options),
                 nodeView = new NodeView({ model: node });
 
@@ -258,9 +305,20 @@ define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow'
             nodeView.$el.draggable({
                 handle: '.back',
                 drag: (function(event, ui) {
-                    this.inputVent.trigger('drag:node', ui.offset, node);
+                    this.inputVent.trigger('drag:node', ui.position, node);
+                    node.set('isDragging', true);
+                    node.set('x', pxToRem(ui.position.left + nodeView.$el.outerWidth() / 2));
+                    node.set('y', pxToRem(ui.position.top + nodeView.$el.outerHeight() / 2));
+                }).bind(this),
+                stop: (function(event, ui) {
+                    this.inputVent.trigger('stopDrag:node', ui.position, node);
+                    // hacky solution
+                    _.defer(function() {
+                        node.set('isDragging', false);
+                    });
                 }).bind(this)
             });
+
 
             return node;
         },
@@ -272,7 +330,8 @@ define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow'
                 fromNode = proxyArrow.get('fromNode'),
                 toNode = proxyArrow.get('toNode'),
                 fromNodeType = fromNode.get('type'),
-                toNodeType =  toNode.get('type');
+                toNodeType =  toNode.get('type'),
+                weight = proxyArrow.get('weight');
 
             this.model.get('arrows').add(proxyArrow);
             proxyArrow.set('isAttached', true);
@@ -282,12 +341,21 @@ define(['jquery-ui', 'underscore', 'backbone', 'vents/InputVent', 'models/Arrow'
                 proxyArrowView.$el.addClass(fromNodeType + '-' + toNodeType + '-arrow');
             }
 
-            proxyArrowView.transform({
+            var coords = {
+                x1: proxyArrow.get('x1'),
+                y1: proxyArrow.get('y1') - weight / 2,
+                x2: toNode.get('x'),
+                y2: toNode.get('y') - weight / 2
+            };
+
+            proxyArrow.set({
                 x1: proxyArrow.get('x1'),
                 y1: proxyArrow.get('y1'),
                 x2: toNode.get('x'),
                 y2: toNode.get('y')
-            }, false);
+            });
+
+            proxyArrowView.transform(coords, false);
 
             // update nodes on either end of the arrow
             toNode.addInArrow(proxyArrow);

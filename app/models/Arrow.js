@@ -1,4 +1,7 @@
-define(['backbone'], function(Backbone) {
+define(function(require, exports, module) {
+    var _           = require('underscore'),
+        Backbone    = require('backbone');
+
     var Arrow = Backbone.Model.extend({
 
         defaults: {
@@ -8,7 +11,8 @@ define(['backbone'], function(Backbone) {
             y1: 0,
             y2: 0,
 
-            weight: 0.75,
+            weight: 1.0,
+            weightPx: 16,
             length: 0,
 
             // px

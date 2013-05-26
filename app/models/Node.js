@@ -1,4 +1,7 @@
-define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
+define(function(require, exports, module) {
+    var _           = require('underscore'),
+        Backbone    = require('backbone');
+
     var Node = Backbone.Model.extend({
 
         defaults: {
@@ -29,7 +32,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             // could be used for a fancy highlight effect
             nodes: null,
 
-            isLastNode: true
+            isLastNode: true,
+            isDragging: false
         },
 
         initialize: function(attributes, options) {

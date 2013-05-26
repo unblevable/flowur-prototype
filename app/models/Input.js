@@ -1,4 +1,9 @@
-define(['jquery', 'underscore', 'backbone', 'collections/Nodes', 'collections/Arrows'], function($, _, Backbone, Nodes, Arrows) {
+define(function(require, exports, module) {
+    var _           = require('underscore'),
+        Backbone    = require('backbone'),
+        Nodes       = require('collections/Nodes'),
+        Arrows      = require('collections/Arrows');
+
     var Input = Backbone.Model.extend({
 
         defaults: {
@@ -21,8 +26,13 @@ define(['jquery', 'underscore', 'backbone', 'collections/Nodes', 'collections/Ar
             isArrowLongEnough: false,
             canAttachArrow: false,
 
+            // startNodeX: 30,
             startNodeX: 30,
             startNodeY: 12,
+
+            // scroll positions
+            scrollX: 0,
+            scrollY: 0
         },
 
         initialize: function() {

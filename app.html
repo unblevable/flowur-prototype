@@ -5,71 +5,8 @@
         <meta charset = "utf-8" />
         <script type="text/javascript" src="//use.typekit.net/yxz0qgs.js"></script>
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-        <script data-main = "app/bootstrap.js" src = "//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js"></script>
-        <!-- templates -->
+        <script data-main = "app/bootstrap.js" src = "app/lib/require.js"></script>
         <link href = "css/style.css" rel = "stylesheet" type = "text/css" media = "all" />
-        <script type = "text/html" id = "input-template">
-            <div id = "input-scroller">
-                <div id = "input-container"></div>
-            </div>
-        <a class = "options-toggle"><span class = "icon-cog" data-icon = "&#xf013;" aria-hidden = "true"></span><span class = "icon-caret-down" data-icon = "&#xf0d7;" aria-hidden = "true"></span></a>
-        </script>
-        <script type = "text/html" id = "input-options-template">
-            <div id = "flowchart-options" class = "options clearfix">
-                <input class = "title" type = "text" placeholder = "Untitled" />
-            </div>
-            <div id  = "stats-options" class = "clearfix">
-                <div id = "stats-wrap" class = "clearfix">
-                    <div class = "node-count data-count">
-                        <strong>0</strong>
-                        Nodes
-                    </div>
-                    <div class = "arrow-count data-count clearfix">
-                        <strong>0</strong>
-                        Arrows
-                    </div>
-                </div>
-            </div>
-            <div id = "view-options" class = "options clearfix">
-                <p class = "value"></p>
-                <p class = "label">Zoom</p>
-                <div id = "zoom-slider" class = "slider"></div>
-            </div>
-        </script>
-        <script type = "text/html" id = "node-options-template">
-            <p class = "label">Type</p>
-            <div class = "button-wrap clearfix">
-                <button class = "question-button" type = "button" title = "Question">Q<span class = "selected" data-icon = "&#xf058;" aria-hidden = "true"></span></button>
-                <button class = "answer-button" type = "button" title = "Answer">A<span class = "selected" data-icon = "&#xf058;" aria-hidden = "true"></span></button>
-                <button class = "statement-button" type = "button" title = "Statement">S<span class = "selected" data-icon = "&#xf058;" aria-hidden = "true"></span></button>
-            </div>
-            <p class = "value">x<span id = "importance-value">1.0</span></p>
-            <p class = "label">Importance</p>
-            <div id = "importance-slider" class = "slider"></div>
-        </script>
-        <script type = "text/html" id = "node-template">
-            <div class = "container">
-                <div class = "front"></div>
-                <div class = "back"></div>
-            </div>
-        </script>
-        <script type = "text/html" id = "minimized-bubble-template">
-            <p class = "type"><span class = "letter"><%= letter %></span>:</p>
-            <p class = "text"><%= text %></p>
-            <span class = "tip"></span>
-        </script>
-        <script type = "text/html" id = "maximized-bubble-template">
-            <div class = "meta">
-                <a class = "options"><span data-icon = "&#xf013;" aria-hidden = "true"></span></a>
-                <span class = "remaining-character-count"><%= remainingCharacterCount %></span>
-                <span class = "editing-options-notification">Editing&hellip;</span>
-                <a class = "delete-node"><span data-icon = "&#xf014;" aria-hidden = "true"></span></a>
-                <span class = "tip"></span>
-            </div>
-            <textarea autofocus = "true" maxlength = "140" placeholder = "" rows = "2" spellcheck = "true"><%= text %></textarea>
-        </script>
-        <script type = "text/html" id = "arrow-template">
-        </script>
     </head>
     <body id = "app">
         <div id = "progress"></div>

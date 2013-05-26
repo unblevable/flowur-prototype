@@ -1,12 +1,16 @@
 requirejs.config({
     paths: {
-        jquery: '//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min',
-        'jquery-ui': '//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min',
-        underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min',
-        backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min',
+        text: 'lib/text',
+        jquery: 'lib/jquery',
+        'jquery-ui': 'lib/jquery-ui',
+        underscore: 'lib/underscore',
+        backbone: 'lib/backbone',
         'backbone-nested': 'lib/backbone-nested-v1.1.2.min',
 
         'iscroll': 'lib/iscroll',
+        'overscroll': 'lib/jquery.overscroll',
+
+        'bootstrap': 'bootstrap/js/bootstrap',
 
         // MV*
         models: 'models',
@@ -38,6 +42,14 @@ requirejs.config({
         'jquery-ui': {
             deps: ['jquery'],
             exports: '$'
+        },
+
+        'overscroll': {
+            deps: ['jquery']
+        },
+
+        'bootstrap': {
+            deps: ['jquery']
         }
     },
 
@@ -45,11 +57,12 @@ requirejs.config({
     urlArgs: 'bust=' + (new Date()).getTime()
 });
 
-requirejs(['jquery', 'models/App', 'views/AppView'],  function($, App, AppView) {
+requirejs(['jquery', 'models/App', 'views/AppView', 'iscroll', 'overscroll'],  function($, App, AppView, iScroll) {
     $(function() {
 
         var app = new App,
-            appView = new AppView({ model: app });
+            appView = new AppView({ model: app }),
+            iScroller;
 
         $('body').append(appView.render().$el);
     });

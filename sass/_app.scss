@@ -32,6 +32,9 @@ $statement-color                : $orange;
 $transparent-question-color     : transparentize($question-color, 0.2);
 $transparent-answer-color       : transparentize($answer-color, 0.2);
 $transparent-statement-color    : transparentize($statement-color, 0.2);
+$transparent-question-color     : $question-color;
+$transparent-answer-color       : $answer-color;
+$transparent-statement-color    : $statement-color;
 
 
 .question-arrow,
@@ -129,8 +132,22 @@ $transparent-statement-color    : transparentize($statement-color, 0.2);
 
     #input-container {
 
+        position: absolute;
         width: 5000px;
         height: 5000px;
+        // width: 1000px;
+        // height: 1000px;
+        // margin: -500px 0 0 -500px;
+        // top: 50%;
+        // left: 50%;
+        // background-color: rgba(255, 0, 0, 0.5);
+    }
+
+    #input-scroll {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
     }
 
     .node {
@@ -138,6 +155,8 @@ $transparent-statement-color    : transparentize($statement-color, 0.2);
         position: absolute;
         width: $back-width;
         height: $back-height;
+        // keep hidden for now
+        left: -9999px;
 
         .container {
 
@@ -181,5 +200,110 @@ $transparent-statement-color    : transparentize($statement-color, 0.2);
 
             cursor: move;
         }
+    }
+}
+
+$template-interface-color: rgb(110, 110, 110);
+
+#template-interface {
+
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+#template-interface-title-bar {
+
+    text-align: center;
+    display: block;
+    margin: 2.0rem 0;
+
+    p {
+        display: inline-block;
+        padding: 0.75rem;
+        text-transform: uppercase;
+        color: $template-interface-color;
+        border: 1px solid rgb(150, 150, 150);
+        clear: both;
+    }
+}
+
+#template-interface-layout-selection {
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    li:first-child {
+        margin-top: 0;
+    }
+
+    li {
+        margin-top: 5%;
+    }
+
+    float: left;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#template-interface-layout-scroller {
+
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#template-interface-theme-selection {
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    li:first-child {
+        margin-top: 0;
+    }
+
+    li {
+        margin-top: 5%;
+    }
+
+    width: 50%;
+    height: 100%;
+    float: right;
+    overflow: hidden;
+}
+
+#template-interface-theme-scroller {
+
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.template-interface-card {
+
+    position: relative;
+    background-color: rgb(250, 250, 250);
+    margin-left: 2.5%;
+    width: 95%;
+    height: 20rem;
+    background-color: rgb(197, 239, 222);
+}
+
+.template-interface-card-meta {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+
+    h3 {
+        font-weight: bold;
+    }
+
+    h3, p {
+
+        display: inline;
     }
 }
