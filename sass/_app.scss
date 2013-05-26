@@ -284,26 +284,56 @@ $template-interface-color: rgb(110, 110, 110);
 
 .template-interface-card {
 
-    position: relative;
+    // position: relative;
     background-color: rgb(250, 250, 250);
     margin-left: 2.5%;
     width: 95%;
     height: 20rem;
     background-color: rgb(197, 239, 222);
-}
 
-.template-interface-card-meta {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: rgb(255, 255, 255);
+    .selected {
 
-    h3 {
-        font-weight: bold;
+        background-color: rgb(61, 239, 167);
+
+        .selected-icon{
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+        }
     }
 
-    h3, p {
+    .highlighted {
 
-        display: inline;
+        background-color: rgba(0, 0, 0, 0.4);
+
+        .selected-icon {
+            color: rgba(0, 0, 0, 0.5);
+        }
+    }
+}
+
+// .template-interface-card-meta {
+//     position: absolute;
+//     bottom: 0;
+//     width: 100%;
+//     background-color: rgb(255, 255, 255);
+//
+//     h3 {
+//         font-weight: bold;
+//     }
+//
+//     h3, p {
+//
+//         display: inline;
+//     }
+// }
+
+.template-interface-card-overlay {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+    div {
+        font-size: 5.0rem;
+        line-height: 20rem;
     }
 }

@@ -4,7 +4,9 @@ define(function(require, exports, module) {
 
     var TemplateInterfaceCard = Backbone.Model.extend({
 
-        defaults: {},
+        defaults: {
+            isSelected: false
+        },
 
         initialize: function() {
         }

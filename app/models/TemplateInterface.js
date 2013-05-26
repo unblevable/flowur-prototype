@@ -4,7 +4,11 @@ define(function(require, exports, module) {
 
     var TemplateInterface = Backbone.Model.extend({
 
-        defaults: {},
+        defaults: {
+            isLayoutsScrolling: false,
+            isThemesScrolling: false,
+            selectedCardView: null
+        },
 
         initialize: function() {
         }
