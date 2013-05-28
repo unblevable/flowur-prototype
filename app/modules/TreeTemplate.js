@@ -462,7 +462,7 @@ define(function(require, exports, module) {
                     toNode.parents.push(fromNode);
                     fromNode.paths.push(newPath);
                 }
-            });
+            }.bind(this));
 
 
 
