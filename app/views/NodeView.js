@@ -143,7 +143,10 @@ define(function(require, exports, module) {
             this.center();
         },
 
+        // Potential bug: order of removals.
         destroy: function() {
+            this.inputVent.trigger('removeNode:flowchart', this.model.cid.replace( /^\D+/g, ''));
+
             this.stopListening(this.model);
             this.model.destroy();
 

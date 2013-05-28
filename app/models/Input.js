@@ -2,11 +2,15 @@ define(function(require, exports, module) {
     var _           = require('underscore'),
         Backbone    = require('backbone'),
         Nodes       = require('collections/Nodes'),
-        Arrows      = require('collections/Arrows');
+        Arrows      = require('collections/Arrows'),
+        Flowchart   = require('models/Flowchart'),
+        FlowchartVent = require('vents/FlowchartVent');
 
     var Input = Backbone.Model.extend({
 
         defaults: {
+            flowchart: new Flowchart(),
+
             parent: null,
             css: null,
             nodes: new Nodes(),
@@ -36,6 +40,16 @@ define(function(require, exports, module) {
         },
 
         initialize: function() {
+
+            var flowchart = this.get('flowchart');
+
+            flowchart.on({
+                'change': function() {
+                    if(flowchart) {
+                        FlowchartVent.trigger('update:output', flowchart.toJSON());
+                    }
+                }
+            });
         },
     });
 

@@ -6,6 +6,7 @@ requirejs.config({
         underscore: 'lib/underscore',
         backbone: 'lib/backbone',
         'backbone-nested': 'lib/backbone-nested-v1.1.2.min',
+        'raphael': 'lib/raphael/raphael',
 
         'iscroll': 'lib/iscroll',
         'overscroll': 'lib/jquery.overscroll',
@@ -17,7 +18,8 @@ requirejs.config({
         views: 'views',
         collections: 'collections',
         routers: 'routers',
-        templates: 'templates'
+        templates: 'templates',
+        modules: 'modules'
     },
 
     shim: {

@@ -13,13 +13,6 @@ define(function(require, exports, module) {
 
         templateInterfaceTemplate: _.template(TemplateInterfaceTemplate),
 
-        events: {
-            'click': function() {
-                console.log(this.model.get('isLayoutsScrolling'));
-                console.log(this.model.get('isThemesScrolling'));
-            }
-        },
-
         initialize: function() {
             _(this).bindAll('render');
 
@@ -63,20 +56,14 @@ define(function(require, exports, module) {
                 templateInterfaceCardView.render();
             }
 
-            for(var i = 0; i < 5; i++) {
-                var templateInterfaceCard = new TemplateInterfaceCard({ parent: this.model }),
-                    templateInterfaceCardView = new TemplateInterfaceCardView({ model: templateInterfaceCard });
-                var listElement = $('<li></li>');
-                listElement.append(templateInterfaceCardView.$el);
-                this.$('#template-interface-theme-selection ul').append(listElement);
-                templateInterfaceCardView.render();
-            }
-
-            // not working...
-            _.defer(function() {
-                this.layoutScroller.refresh();
-                this.themeScroller.refresh();
-            }.bind(this));
+            // for(var i = 0; i < 5; i++) {
+            //     var templateInterfaceCard = new TemplateInterfaceCard({ parent: this.model }),
+            //         templateInterfaceCardView = new TemplateInterfaceCardView({ model: templateInterfaceCard });
+            //     var listElement = $('<li></li>');
+            //     listElement.append(templateInterfaceCardView.$el);
+            //     this.$('#template-interface-theme-selection ul').append(listElement);
+            //     templateInterfaceCardView.render();
+            // }
         }
     });
 

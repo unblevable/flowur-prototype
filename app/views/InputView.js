@@ -6,6 +6,7 @@ define(function(require, exports, module) {
         Arrow                   = require('models/Arrow'),
         InputOptions            = require('models/InputOptions'),
         Node                    = require('models/Node'),
+        Flowchart               = require('models/Flowchart'),
         ArrowView               = require('views/ArrowView'),
         InputOptionsView        = require('views/InputOptionsView'),
         NodeView                = require('views/NodeView'),
@@ -27,6 +28,9 @@ define(function(require, exports, module) {
             'mousemove'             : 'handleArrowDrag',
             'mouseup'               : 'handleArrowAttachment',
             'click .options-toggle' : 'toggleOptionsToggle',
+            'dblclick'              : function() {
+                console.log(this.model.get('flowchart').toJSON());
+            }
         },
 
         initialize: function() {
@@ -55,7 +59,16 @@ define(function(require, exports, module) {
                         '-webkit-transform': 'scale(' + zoom + ')',
 
                     });
-                }).bind(this)
+                }).bind(this),
+                'removeNode:flowchart'      : function(id) {
+                    this.model.get('flowchart').removeNode(id);
+                }.bind(this),
+                'removeArrow:flowchart'     : function(id) {
+                    this.model.get('flowchart').removeArrow(id);
+                }.bind(this),
+                'updateNode:flowchart'      : function(attributes) {
+                    this.model.get('flowchart').updateNode(attributes);
+                }.bind(this)
             });
         },
 
@@ -299,6 +312,12 @@ define(function(require, exports, module) {
 
             this.model.get('nodes').add(node);
 
+            // Update flowchart data.
+            this.model.get('flowchart').addNode({
+                id: node.cid.replace( /^\D+/g, ''),
+                data: '',
+            });
+
             this.$els.container.append(nodeView.$el);
             nodeView.render();
 
@@ -367,6 +386,13 @@ define(function(require, exports, module) {
             // adjust importances
             toNode.scaleToImportance();
             fromNode.scaleToImportance();
+
+            // update flowchart data
+            this.model.get('flowchart').addArrow({
+                id: proxyArrow.cid.replace( /^\D+/g, ''),
+                from: fromNode.cid.replace( /^\D+/g, ''),
+                to: toNode.cid.replace( /^\D+/g, '')
+            });
 
         },
     });

@@ -163,6 +163,10 @@ define(function(require, exports, module) {
         },
 
         destroy: function(callback) {
+            console.log(this.model.cid);
+            // Update flowchart data.
+            this.inputVent.trigger('removeArrow:flowchart', this.model.cid.replace( /^\D+/g, ''));
+
             this.model.destroy();
 
             this.stopListening(this.model);

@@ -33,6 +33,12 @@ define(function(require, exports, module) {
                 this.model.set('text', this.$el.find('textarea').val());
                 this.model.set('count', this.model.get('text').length);
 
+                // update flowchart
+                this.inputVent.trigger('updateNode:flowchart',  {
+                    id: this.model.get('parent').cid.replace( /^\D+/g, ''),
+                    data: this.model.get('text')
+                });
+
                 // minimize on return key
                 if(event.which === 13) {
                     this.minimize();

@@ -33,15 +33,20 @@ define(function(require, exports, module) {
             _(this).bindAll('erase');
         },
 
+        // Potential bug: memory leaks.
         erase: function() {
             var fromNode = this.get('fromNode'),
                 toNode = this.get('toNode');
 
-            fromNode.removeOutArrow(this);
-            fromNode.removeToNode(toNode);
+            if(fromNode) {
+                fromNode.removeOutArrow(this);
+                fromNode.removeToNode(toNode);
+            }
 
-            toNode.removeInArrow(this);
-            toNode.removeFromNode(fromNode);
+            if(toNode) {
+                toNode.removeInArrow(this);
+                toNode.removeFromNode(fromNode);
+            }
         },
     });
 

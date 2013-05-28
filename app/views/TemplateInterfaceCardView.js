@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     var $                               = require('jquery'),
         _                               = require('underscore'),
         Backbone                        = require('backbone'),
-        TemplateInterfaceCardTemplate       = require('text!templates/template_interface_card.html');
+        TemplateInterfaceCardTemplate   = require('text!templates/template_interface_card.html');
 
     var TemplateInterfaceCardView = Backbone.View.extend({
 
@@ -13,30 +13,17 @@ define(function(require, exports, module) {
         events: {
             'mouseenter': function() {
                 if(!this.model.get('isSelected')) {
-                    this.overlayElement.removeClass('selected');
-                    this.overlayElement.addClass('highlighted');
-                    this.overlayElement.animate({
-                        opacity: 'show',
-                    }, 250);
+                    this.highlight();
                 }
-
-                console.log('enter');
-                console.log(this.model.get('isSelected'));
             },
             'mousemove': function() {
                 if(!this.model.get('isSelected')) {
-                    this.overlayElement.removeClass('selected');
-                    this.overlayElement.addClass('highlighted');
-                    this.overlayElement.animate({
-                        opacity: 'show',
-                    }, 250);
+                    this.highlight();
                 }
             },
             'mouseleave': function() {
                 if(!this.model.get('isSelected')) {
-                    this.overlayElement.animate({
-                        opacity: 'hide',
-                    }, 150);
+                    this.unhighlight();
                 }
             },
             'click': function() {
@@ -68,7 +55,7 @@ define(function(require, exports, module) {
         },
 
         initialize: function() {
-            _(this).bindAll('render');
+            _(this).bindAll('render', 'highlight', 'unhighlight');
         },
 
         render: function() {
@@ -77,7 +64,21 @@ define(function(require, exports, module) {
             this.overlayElement = this.$('.template-interface-card-overlay');
 
             this.$('.template-interface-card-overlay').hide();
-        }
+        },
+
+        highlight: function() {
+            this.overlayElement.removeClass('selected');
+            this.overlayElement.addClass('highlighted');
+            this.overlayElement.animate({
+                opacity: 'show',
+            }, 250);
+        },
+
+        unhighlight: function() {
+            this.overlayElement.stop(true, true).animate({
+                opacity: 'hide',
+            }, 150);
+        },
     });
 
     return TemplateInterfaceCardView;

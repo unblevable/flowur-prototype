@@ -835,16 +835,62 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   color: rgba(0, 0, 0, 0.5);
 }
 
-/* line 330, ../sass/_app.scss */
+/* line 314, ../sass/_app.scss */
 .template-interface-card-overlay {
   width: 100%;
   height: 100%;
   text-align: center;
 }
-/* line 335, ../sass/_app.scss */
+/* line 320, ../sass/_app.scss */
 .template-interface-card-overlay div {
   font-size: 5.0rem;
   line-height: 20rem;
+}
+
+/* line 326, ../sass/_app.scss */
+#output {
+  background-color: #191919;
+  color: whitesmoke;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* line 335, ../sass/_app.scss */
+#output-title-box {
+  text-align: center;
+  display: block;
+  margin: 2rem 0;
+}
+/* line 342, ../sass/_app.scss */
+#output-title-box p {
+  display: inline-block;
+  padding: 0.75rem;
+  text-transform: uppercase;
+  color: whitesmoke;
+  border: 1px solid whitesmoke;
+  clear: both;
+}
+
+/* line 352, ../sass/_app.scss */
+#output-container {
+  margin: 0 auto;
+  text-align: center;
+  width: 95%;
+  height: 80%;
+}
+
+/* line 360, ../sass/_app.scss */
+#output-options {
+  margin-bottom: 2.0rem;
+}
+
+/* line 365, ../sass/_app.scss */
+#output-flowchart {
+  height: 100%;
+  width: 100%;
+  background-color: #0f0f0f;
+  overflow: auto;
 }
 
 /* line 2, ../sass/_arrow.scss */
