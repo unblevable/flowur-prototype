@@ -9,6 +9,7 @@ define(function(require, exports, module) {
         },
 
         initialize: function() {
+            _(this).bindAll();
         }
     });
 
