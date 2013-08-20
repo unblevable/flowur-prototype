@@ -24,3 +24,18 @@ If you're using Python 2, replace `http.server` with `SimpleHTTPServer`.
 
 ### Run the App
 In any web browser visit `http://localhost:8080/flowur-prototype/app.html`.
+
+
+## Using the App
+
+### Input Data and Structure the Flowchart
+* Drag from the center of a node to the canvas to **create** a new node.
+* Drag from the center of a node to the center of another node to **connect** them.
+* Drag from the edge of a node to **move** it.
+* Click on a node to expand its tooltip. From here you can **edit** the node or change its settings.
+
+### Choose a Layout and Styling
+For now a tree-type template is automatically selected.
+
+### Save and Share
+For now generate a flowchart by double-clicking on the black box.
